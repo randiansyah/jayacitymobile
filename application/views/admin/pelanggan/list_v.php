@@ -43,7 +43,7 @@
        <a href="<?php //echo base_url('Pelanggan/exportCSV')?>" class="btn btn-sm btn-warning" ><i class="fa fa-download"></i> Export CSV</a>
      -->
              <?php if($this->data['is_can_create']){?>
-        <a href="<?php echo $this->uri->segment(1)?>/create" class="btn btn-sm btn-primary">Tambah Pelanggan</a>
+        <!-- <a href="<?php echo $this->uri->segment(1)?>/create" class="btn btn-sm btn-primary">Tambah Pelanggan</a> -->
         <?php 
 }
 ?>

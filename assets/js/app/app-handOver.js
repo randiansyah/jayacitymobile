@@ -38,6 +38,7 @@ define([
                 "columns": [
                     { "data": "id" },
                     { "data": "id_pelanggan" },
+                    { "data": "teller" },
                     { "data": "image" },
                     { "data": "created_at" },
                     { "data": "action" }

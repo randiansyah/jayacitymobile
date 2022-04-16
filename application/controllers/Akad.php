@@ -30,15 +30,16 @@ class Akad extends Admin_Controller
   public function dataList()
   {
     $columns = array(
-      0 => 'nomor_akad',
+      0 => 'id',
       1 => 'nomor_akad',
-      2 => 'id_pelanggan',
-      3 => 'tgl_akad',
-      4 => 'id_cicilan',
-      5 => 'margin_keuntungan',
-      6 => 'harga_jual',
-      7 => 'bunga',
-      8 => '',
+      2 => 'id_invoice',
+      3 => 'id_pelanggan',
+      4 => 'nama',
+      5 => 'tgl_akad',
+      6 => 'lama_cicilan',
+      7 => 'harga_jual',
+      8 => 'uang_muka',
+      9 => 'bunga',
     );
 
     $order = $columns[$this->input->post('order')[0]['column']];

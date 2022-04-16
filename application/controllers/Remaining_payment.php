@@ -33,7 +33,7 @@ class Remaining_payment extends Admin_Controller
   {
     $columns = array(
       0 => '',
-      1 => 'nama',
+      1 => 'total',
       2 => 'tgl_akad',
       3 => 'lama_cicilan',
       4 => '',
@@ -60,7 +60,7 @@ class Remaining_payment extends Admin_Controller
 
     $isSearchColumn = false;
 
-    $datas = $this->angsuran_model->getAllByCustomer($where);
+    $datas = $this->angsuran_model->getAllByCustomer($limit, $start, $search, $order, $dir, $where);
 
     $new_data = array();
     if (!empty($datas)) {

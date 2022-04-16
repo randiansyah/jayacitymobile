@@ -70,6 +70,7 @@ class Hand_over extends Admin_Controller
                 // $nestedData['id']   = $start+$key+1;
                 $nestedData['id']   = $data->id_serah_barang;
                 $nestedData['id_pelanggan']         = $data->nama;
+                $nestedData['teller']         = $data->teller;
                 $nestedData['image']         = "<a href='assets/upload/image/$data->image' target='blank'><img src=assets/upload/image/$data->image width='30%' alt='Snow'></a>";
                 $nestedData['created_at']         =  date("d M Y", strtotime($data->created_at));
                 $nestedData['action'] = $edit_url . "  " . $delete_url;
@@ -122,6 +123,7 @@ class Hand_over extends Admin_Controller
 
                 $data = array(
                     'id_pelanggan' => $this->input->post('id_pelanggan'),
+                    'teller' => $this->input->post('teller'),
                     'image' =>  $image_data['file_name'],
                     'created_at' =>  date("Y-m-d H:i:s")
                 );
@@ -185,6 +187,7 @@ class Hand_over extends Admin_Controller
 
             $data = array(
                 'id_pelanggan' => $this->input->post('pelanggan'),
+                'teller' => $this->input->post('teller'),
                 'image' =>  $photo_pelanggan,
                 'created_at' =>  date("Y-m-d H:i:s")
             );

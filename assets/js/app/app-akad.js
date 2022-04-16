@@ -61,7 +61,15 @@ define([
                     { "data": "bunga" },
                     { "data": "aksi" },
                 ],
-                "order": [[0, 'desc']]
+                "columnDefs": [{
+                    "targets": [10], // Download
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }
+        
+            ],
+                "order": [[0, 'ASC']]
             });
 
             $("#form-akad").validate({

@@ -56,9 +56,27 @@ define([
                     { "data": "terbayar" },
                     {"data": "aksi"}
 
-                   
-                   
+                           
                 ],
+                "columnDefs": [{
+                    "targets": [0], // Download
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }],
+                "columnDefs": [{
+                    "targets": [2], // Download
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }],
+                "columnDefs": [{
+                    "targets": [3], // Download
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }],
+                "order": [[0, 'desc']]    
                  
             });
 

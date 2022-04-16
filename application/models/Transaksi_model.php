@@ -88,6 +88,30 @@ class Transaksi_model extends CI_Model
             return null;
         }
     }
+
+    function getAllByLaporan($limit,$start,$search,$col,$dir,$where)
+    {
+        $this->db->select("transaksi.*,pelanggan.nama as pelanggan_nama,COUNT(transaksi.id_pelanggan) as jumlah")->from("transaksi"); 
+        $this->db->join("pelanggan","pelanggan.id_pelanggan=transaksi.id_pelanggan");
+        $this->db->group_by("id_pelanggan");
+           $this->db->limit($limit,$start)->order_by($col,$dir);
+           $this->db->where($where);
+    	if(!empty($search)){
+    		foreach($search as $key => $value){
+				$this->db->or_like($key,$value);	
+			} 	
+        } 
+        
+       	$result = $this->db->get();
+        if($result->num_rows()>0)
+        {
+            return $result->result();  
+        }
+        else
+        {
+            return null;
+        }
+    }
   
 
     function getCountAllBy($limit,$start,$search,$order,$dir)

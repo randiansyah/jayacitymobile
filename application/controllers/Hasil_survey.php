@@ -25,7 +25,7 @@ class Hasil_survey extends Admin_Controller
   {
     $columns = array(
       0 => 'id',
-      1 => 'id_pelanggan',
+      1 => 'hasil_survey.id_pelanggan',
       2 => 'nama',
       3 => 'ktp',
       4 => 'tanggal',

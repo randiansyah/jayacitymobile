@@ -31,14 +31,14 @@ class Bukti_pembayaran extends Admin_Controller
   public function dataList()
   {
     $columns = array(
-      0 => '',
-      1 => '',
-      2 => '',
-      3 => '',
-      4 => '',
-      5 => '',
-      6 => '',
-      7 => '',
+      0 => 'id_angsuran',
+      1 => 'id_akad',
+      2 => 'id_invoice',
+      3 => 'id_pelanggan',
+      4 => 'cicilan',
+      5 => 'jumlah_cicilan',
+      6 => 'jumlah_bayar',
+      7 => 'tgl_bayar',
       8 => '',
       9 => '',
     );

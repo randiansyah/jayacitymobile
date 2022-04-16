@@ -73,7 +73,26 @@ define([
 
 
                 ],
-                "order": [[0, 'desc']]
+                "columnDefs": [{
+                    "targets": [9], // Download
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }, {
+                    "targets": [10], // Name
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }, {
+                    "targets": [11], // File name
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                },
+        
+        
+            ],
+                "order": [[0, 'ASC']]
             });
 
         },

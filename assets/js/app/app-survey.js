@@ -50,7 +50,8 @@ define([
                     { "data": "nama_surveyor" },
                      { "data": "status" },
                     { "data": "action" }
-                ]      
+                ],
+                "order": [[ 1, "desc" ]]       
             });
 
              $('.datepicker').datepicker({

@@ -96,9 +96,10 @@ class Angsuran_model extends CI_Model
         }
     }
 
-    function getAllByCustomer($where)
+    function getAllByCustomer($limit,$start,$search,$col,$dir,$where)
     {
-        $this->db->select("akad.*")->from("akad"); 
+        $this->db->select("akad.*")->from("akad");
+        $this->db->limit($limit,$start)->order_by($col,$dir); 
         $this->db->where($where); 
         $this->db->where("is_deleted=0");
         

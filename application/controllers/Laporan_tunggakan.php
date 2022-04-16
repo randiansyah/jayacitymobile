@@ -28,14 +28,14 @@ class Laporan_tunggakan extends Admin_Controller
   public function dataList()
   {
     $columns = array(
-      0 => '',
-      1 => '',
-      2 => '',
-      3 => '',
-      4 => '',
-      5 => '',
-      6 => '',
-      7 => '',
+      0 => 'id_angsuran',
+      1 => 'id_pelanggan',
+      2 => 'cicilan',
+      3 => 'jumlah_cicilan',
+      4 => 'jumlah_bayar',
+      5 => 'tgl_jatuh_tempo',
+      6 => 'sisa',
+      7 => 'selisih',
       8 => '',
       9 => '',
     );

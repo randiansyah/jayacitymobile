@@ -89,7 +89,7 @@ class Hasil_survey_model extends CI_Model
     function getAllByJOIN($limit,$start,$search,$col,$dir,$where)
     {
         $this->db->select("hasil_survey.*,hasil_survey.status as PS,pelanggan.*")->from("hasil_survey"); 
-        $this->db->join('pelanggan','pelanggan.id_pelanggan=hasil_survey.id_pelanggan','left');
+        $this->db->JOIN('pelanggan','pelanggan.id_pelanggan=hasil_survey.id_pelanggan');
         $this->db->limit($limit,$start)->order_by($col,$dir) ;
         $this->db->where($where);
         if(!empty($search)){
@@ -111,7 +111,8 @@ class Hasil_survey_model extends CI_Model
 
     function getCountAllBy($limit,$start,$search,$order,$dir)
     {
-    	$this->db->select("hasil_survey.*")->from("hasil_survey");  
+    	$this->db->select("hasil_survey.*")->from("hasil_survey"); 
+         
 	   	if(!empty($search)){
     		foreach($search as $key => $value){
 				$this->db->or_like($key,$value);	

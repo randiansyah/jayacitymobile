@@ -32,16 +32,16 @@ class Cetak_angsuran extends Admin_Controller
     public function dataList()
     {
         $columns = array(
-            0 => '',
-            1 => 'nama',
-            2 => 'tgl_akad',
-            3 => 'lama_cicilan',
-            4 => '',
-            5 => '',
-            6 => '',
-            7 => '',
-            8 => '',
-            9 => '',
+            0 => 'id',
+            1 => 'nomor_akad',
+            2 => 'id_invoice',
+            3 => 'id_pelanggan',
+            4 => 'nama',
+            5 => 'tgl_akad',
+            6 => 'lama_cicilan',
+            7 => 'harga_jual',
+            8 => 'uang_muka',
+            9 => 'bunga',
         );
 
         $order = $columns[$this->input->post('order')[0]['column']];

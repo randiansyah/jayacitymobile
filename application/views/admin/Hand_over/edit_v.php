@@ -29,11 +29,15 @@
                 </select>
          
           </div>  
+          <div class="form-froup">
+                <label for="">Teller</label>
+                <input type="text" name="teller" value="<?php echo $data->teller; ?>" class="form-control">
+              </div>
          
                 <div class="form-group">
             <label for="">Photo Serah Barang</label>
         <input type="file" id="photo" name="photo" class="form-control">
-        <input type="text" value="<?php echo $data->image ?>" name="file_foto">
+        <input type="hidden" value="<?php echo $data->image ?>" name="file_foto">
           </div>  
        
       

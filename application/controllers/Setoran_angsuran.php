@@ -39,16 +39,16 @@ class Setoran_angsuran extends Admin_Controller
   public function dataList()
   {
     $columns = array(
-      0 => '',
-      1 => 'nama',
-      2 => 'tgl_akad',
+      0 => 'id',
+      1 => 'id_invoice',
+      2 => 'nama',
       3 => 'lama_cicilan',
-      4 => '',
-      5 => '',
-      6 => '',
-      7 => '',
-      8 => '',
-      9 => '',
+      4 => 'tgl_akad',
+      5 => 'lama_cicilan',
+      6 => 'harga_jual',
+      7 => 'bunga',
+      8 => 'total',
+      9 => 'terbayar',
     );
 
     $order = $columns[$this->input->post('order')[0]['column']];

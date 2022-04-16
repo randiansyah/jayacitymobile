@@ -67,6 +67,12 @@ define([
                     { "data": "keterangan" }, 
         
                 ],
+                "columnDefs": [{
+                  "targets": [4], // Download
+                  "visible": true,
+                  "searchable": true,
+                  "bSortable": false
+              }],
                "order": [[0, 'desc']]          
             });
 

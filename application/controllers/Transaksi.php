@@ -92,18 +92,13 @@ class Transaksi extends Admin_Controller
           $edit_url = "";
         }
         if ($this->data['is_can_delete']) {
-          if ($data->is_deleted == 0) {
+       
             $delete_url = "<button
-                  url='" . base_url() . "Transaksi/destroy/" . $data->id_transaksi . "/" . $data->is_deleted . "'
-                  class='btn btn-danger btn-sm white delete' >NonAktifkan
-                  </button>";
-          } else {
-            $delete_url = "<button
-                  url='" . base_url() . "Transaksi/destroy/" . $data->id_transaksi . "/" . $data->is_deleted . "'
+                  url='" . base_url() . "Transaksi/destroy/" . $data->id_transaksi . "'
                   class='btn btn-danger btn-sm white delete' 
-                   >Aktifkan
+                   >Delete
                   </button>";
-          }
+          
         }
         $nestedData['status'] = $edit_url . "  " . $delete_url;
 
@@ -111,7 +106,7 @@ class Transaksi extends Admin_Controller
         $cicilan =  (!empty($lama_cicilan)) ? $lama_cicilan[0]->nama : "";
 
         $nestedData['id']   = $start + $key + 1;
-        $nestedData['id_invoice']          = "<a href='" . base_url() . "transaksi/view/" . $data->id_transaksi . "'><i class='fa fa-eye'></i> " . $data->id_invoice . "</a> ";;
+        $nestedData['id_invoice']          = "<a href='" . base_url() . "transaksi/view/" . $data->id_transaksi . "'><i class='fa fa-eye'></i> " . $data->id_invoice . "</a> ";
         $nestedData['id_pelanggan']          = $data->id_pelanggan;
         $nestedData['nama']          = $data->pelanggan_nama;
         $nestedData['nama_barang']          = $data->nama_barang;
@@ -297,9 +292,9 @@ class Transaksi extends Admin_Controller
     $is_deleted = $this->uri->segment(4);
     if (!empty($id)) {
       $this->load->model("transaksi_model");
-      $data = array('is_deleted' => ($is_deleted == 1) ? 0 : 1);
-      $update = $this->transaksi_model->update($data, array("id_transaksi" => $id));
-
+    
+      $data = array();
+      $this->transaksi_model->delete(array("id_transaksi" => $id));
       $response_data['data'] = $data;
       $response_data['status'] = true;
     } else {

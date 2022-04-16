@@ -28,10 +28,10 @@ class Laporan_lunas extends Admin_Controller
   public function dataList()
   {
     $columns = array(
-      0 => '',
-      1 => '',
-      2 => '',
-      3 => '',
+      0 => 'id_angsuran',
+      1 => 'id_pelanggan',
+      2 => 'jumlah_angsuran',
+      3 => 'jumlah_pembayaran',
       4 => '',
       5 => '',
       6 => '',

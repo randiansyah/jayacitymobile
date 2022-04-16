@@ -48,6 +48,7 @@
               <thead>
               <th>ID</th>
                <th>Nama Pelanggan</th> 
+               <th>Teller</th> 
                <th width="50%">Photo</th> 
                <th>Di buat</th> 
                <th width="20%">Status</th>

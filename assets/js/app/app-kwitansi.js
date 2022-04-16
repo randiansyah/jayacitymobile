@@ -59,6 +59,15 @@ define([
                     { "data": "tgl_bayar" },
                     { "data": "aksi" }, 
                 ],
+                "columnDefs": [{
+                    "targets": [8], // Download
+                    "visible": true,
+                    "searchable": true,
+                    "bSortable": false
+                }
+        
+        
+            ],
                "order": [[0, 'desc']]          
             });
 
