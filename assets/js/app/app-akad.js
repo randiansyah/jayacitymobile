@@ -69,7 +69,7 @@ define([
                 }
         
             ],
-                "order": [[0, 'ASC']]
+                "order": [[0, 'DESC']]
             });
 
             $("#form-akad").validate({

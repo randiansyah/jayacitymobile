@@ -10,6 +10,8 @@ class User extends Admin_Controller {
 		$this->load->model('roles_model');
 		$this->load->model('user_roles_model');
 		$this->load->model('customer_model'); 
+		$this->load->model('karyawan_model'); 
+		
 
 	}
 	public function index()
@@ -56,22 +58,35 @@ class User extends Admin_Controller {
 			$insert = $this->ion_auth->register($username, $password,$email, $data,$role);
 			 
 			if ($insert)
-			{ 
+			{
+				$role_id = $this->input->post('role_id');	
+				if($role_id == 10){
+            $data_karyawan = array(
+			'id_pengguna' => $insert,
+			'nama' => $this->input->post('first_name'),
+			'no_hp' => $this->input->post('phone'),
+			'email' => $this->input->post('email'));
 
-				$data_pribadi = array (
-					'id_pelanggan' => $insert,
-					'nama' => $this->input->post('first_name'),
-					'no_telp' => $this->input->post('phone'),
-		      		'email' => $this->input->post('email'),
-					 );  
-				$data_keluarga = array (
-					'id_pelanggan' => $insert,
-					 );  
-			    $this->customer_model->insert_data_pribadi($data_pribadi);
-	           $this->customer_model->insert_data_pemohon($data_keluarga);
-				$this->customer_model->insert_data_pasangan($data_keluarga);
-				$this->customer_model->insert_data_kekayaan($data_keluarga);
-			    $this->customer_model->insert_data_keluarga($data_keluarga);
+			$this->karyawan_model->insert($data_karyawan);
+
+				}else{
+					$data_pribadi = array (
+						'id_pelanggan' => $insert,
+						'nama' => $this->input->post('first_name'),
+						'no_telp' => $this->input->post('phone'),
+						  'email' => $this->input->post('email'),
+						 );  
+					$data_keluarga = array (
+						'id_pelanggan' => $insert,
+						 );  
+					$this->customer_model->insert_data_pribadi($data_pribadi);
+				   $this->customer_model->insert_data_pemohon($data_keluarga);
+					$this->customer_model->insert_data_pasangan($data_keluarga);
+					$this->customer_model->insert_data_kekayaan($data_keluarga);
+					$this->customer_model->insert_data_keluarga($data_keluarga);
+				} 
+
+			
 
 				$this->session->set_flashdata('message','Berhasil Membuat User');
 			 	redirect("user");

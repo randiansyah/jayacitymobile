@@ -42,7 +42,14 @@
           </div>   
               <div class="form-group">
             <label for="">MEREK</label>
-  <input class="form-control" name="merek"  autocomplete="off" value="<?php set_value("merek") ?>">       
+            <select id="merek" name="merek" class="form-control select2">
+                  <option value="" required>Pilih salah satu</option>
+                  <?php
+                  foreach ($brand as $key => $val) { ?>
+      <option value="<?php echo $val->id;?>"><?php echo $val->name ?></option>
+                  <?php }
+                  ?>
+                </select>    
           </div> 
            <div class="form-group">
             <label for="">TIPE</label>

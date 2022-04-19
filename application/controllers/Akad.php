@@ -12,6 +12,7 @@ class Akad extends Admin_Controller
     $this->load->model('cicilan_model');
     $this->load->model('akad_model');
     $this->load->model('angsuran_model');
+    $this->load->model('brand_model');
   }
   public function index()
   {
@@ -281,7 +282,7 @@ class Akad extends Admin_Controller
     $transaksi = $this->transaksi_model->getAllById(array('id_invoice' => $id));
     $idPelanggan = (!empty($transaksi)) ? $transaksi[0]->id_pelanggan : "";
     $pelanggan = $this->customer_model->getOneByID(array('id_pelanggan' => $idPelanggan));
-
+    $this->data['brand'] = $this->brand_model->getAllById();
 
     $this->data['pelanggan'] = $pelanggan[0];
     $this->data['transaksi'] = $transaksi[0];

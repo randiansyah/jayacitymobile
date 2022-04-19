@@ -44,7 +44,9 @@
               <div class="form-group row">
                 <div class="col-sm-4"><label for="">TYPE PESANAN</label></div>
                 <div class="col-sm-4"> <?php echo $transaksi->nama_barang ?></div>
+                
               </div>
+            
               <div class="form-group row">
                 <div class="col-sm-4"><label for="">NO.SERI IMEI</label></div>
                 <div class="col-sm-4"><?php echo $transaksi->imei1 ?></div>
@@ -350,6 +352,8 @@
             <input type="hidden" name="id_angsuran" class="id_angsuran">
             <input type="hidden" id="totalnya" name="total" class="total" value="<?php echo $val->jumlah_cicilan; ?>">
             <input type="hidden" name="idAkad"  value="<?php echo $idakad ?>" >
+            <input type="hidden" name="id_inv"  value="<?php echo $transaksi->id_invoice ?>" >
+            <input type="hidden" name="merek"  value="<?php echo $transaksi->merek ?>" >
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">BAYAR</button>
           </div>

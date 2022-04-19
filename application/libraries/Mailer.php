@@ -5,9 +5,9 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mailer {
     protected $_ci;
-    protected $email_pengirim = 'satriani.watch@gmail.com';
-    protected $nama_pengirim = 'ini test';
-    protected $password = 'F33lalive';
+    protected $email_pengirim = 'manggadingincorp@gmail.com';
+    protected $nama_pengirim = 'RANDIGITAL';
+    protected $password = 'Sample123123@';
 
     public function __construct(){
         $this->_ci = &get_instance();

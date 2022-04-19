@@ -26,23 +26,42 @@ class Transaksi_model extends CI_Model
 		return FALSE;
     }
 
-      public function getKode(){
-        $this->db->select('id_invoice')->from("transaksi"); 
-        $query = $this->db->get();  //cek dulu apakah ada sudah ada kode di tabel.    
-     
+    public function getKode(){
+        $this->db->select('RIGHT(transaksi.id_invoice,3) as inv', FALSE);
+        $this->db->order_by('inv','DESC');    
+        $this->db->limit(1);    
+        $query = $this->db->get('transaksi');  //cek dulu apakah ada sudah ada kode di tabel.    
         if($query->num_rows() > 0){      
-         
-               //cek kode jika telah tersedia    
-            $data = $query->row();      
-            $kode = intval($query->num_rows()) + 1; 
-        }else{      
-             
-            $kode = 1;  //cek jika kode belum terdapat pada table
+             //cek kode jika telah tersedia    
+             $data = $query->row();      
+             $kode = intval($data->inv) + 1; 
         }
-        $batas = str_pad($kode, 4, "0", STR_PAD_LEFT);    
-        $kodetampil = $batas;  //format kode
-        return $kodetampil;
-    }
+        else{      
+             $kode = 1;  //cek jika kode belum terdapat pada table
+        }
+            $tgl=date('dmY'); 
+            $batas = str_pad($kode, 4, "0", STR_PAD_LEFT);    
+            $kodetampil = $batas;  //format kode
+            return $kodetampil;  
+       }
+
+    //   public function getKode(){
+    //     $this->db->select('id_invoice')->from("transaksi"); 
+    //     $query = $this->db->get();  //cek dulu apakah ada sudah ada kode di tabel.    
+     
+    //     if($query->num_rows() > 0){      
+         
+    //            //cek kode jika telah tersedia    
+    //         $data = $query->row();      
+    //         $kode = intval($query->num_rows()) + 1; 
+    //     }else{      
+             
+    //         $kode = 1;  //cek jika kode belum terdapat pada table
+    //     }
+    //     $batas = str_pad($kode, 4, "0", STR_PAD_LEFT);    
+    //     $kodetampil = $batas;  //format kode
+    //     return $kodetampil;
+    // }
     
 	public function getAllById($where = array()){
          $this->db->select("*")->from("transaksi"); 

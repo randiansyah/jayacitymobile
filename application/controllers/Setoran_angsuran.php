@@ -6,7 +6,7 @@ class Setoran_angsuran extends Admin_Controller
 {
   public function __construct()
   {
-  
+
     parent::__construct();
     $this->load->model('customer_model');
     $this->load->model('akad_model');
@@ -19,8 +19,7 @@ class Setoran_angsuran extends Admin_Controller
     $this->load->model("template_email_model", "template");
     $this->load->library('mailer');
     $this->load->library('whatsapp');
-  
-
+    $this->load->model('notif_model');
   }
   public function index()
   {
@@ -134,13 +133,13 @@ class Setoran_angsuran extends Admin_Controller
         $nestedData['sisa_pembayaran'] = number_format($sisa, 0, ',', '.');
         $nestedData['aksi'] = $edit_url;
 
-        if($data->bunga > 100){
-          $manual = number_format($data->bunga, 0, ',', '.'). ' /BLN';
-          } else {
+        if ($data->bunga > 100) {
+          $manual = number_format($data->bunga, 0, ',', '.') . ' /BLN';
+        } else {
           $manual = $data->bunga . ' %';
-          }
-  
-          $nestedData['bunga']          = $manual;
+        }
+
+        $nestedData['bunga']          = $manual;
 
 
         $new_data[] = $nestedData;
@@ -183,32 +182,32 @@ class Setoran_angsuran extends Admin_Controller
       $jumlah_cicilan = $this->input->post('jumlah_cicilan');
       $time = $this->input->post('time');
       $teller = $this->input->post('teller');
-    
+
       $no = $this->input->post('no');
       $jumlah_cicilan = $this->input->post('jumlah_cicilan');
       $jumlah_bayar1 = str_replace(".", "", $this->input->post('bayar'));
       $jumlah_bayar = str_replace("Rp", "", $jumlah_bayar1);
       $date = date("Y-m-d");
-  
+
       $cicilan_angsuran = array();
       foreach ($no as $key => $val) {
-        
+
         if ($no[$key] > 0) {
-         // $sisa[$key] = $jumlah_cicilan[$key] - $jumlah_bayar[$key];
-        if($jumlah_bayar[$key] == $jumlah_cicilan[$key]){
-          $status[$key] = "1";
-        }else{
-          $status[$key] = "0";
-        }
-         // print_r($sisa[$key]);
-           
+          // $sisa[$key] = $jumlah_cicilan[$key] - $jumlah_bayar[$key];
+          if ($jumlah_bayar[$key] == $jumlah_cicilan[$key]) {
+            $status[$key] = "1";
+          } else {
+            $status[$key] = "0";
+          }
+          // print_r($sisa[$key]);
+
           // if($sisa[$key] <= "0"){
           //   $status[$key] = "1";
           // }else{
           //   $status[$key] = "0";
           // }
-        
-          $tgl_bayar[$key] = date("Y-m-d",strtotime($tgl[$key]));
+
+          $tgl_bayar[$key] = date("Y-m-d", strtotime($tgl[$key]));
           $cicilan_angsuran[] = array(
             'id_akad'   => $id_akad,
             'id_pelanggan'   => $id_pelanggan,
@@ -230,15 +229,15 @@ class Setoran_angsuran extends Admin_Controller
 
       if ($update) {
         $name = $this->input->post('nameP');
-        $phone= $pelanggan->no_telp;
-        $message = "Hi, ".$name.$temp_wa->isi;
+        $phone = $pelanggan->no_telp;
+        $message = "Hi, " . $name . $temp_wa->isi;
 
         $this->whatsapp->send($phone, $message);
-        
+
         $sendmail = array(
-            'email_penerima'=> $pelanggan->email,
-            'subjek'=> 'Pembayaran Angsuran',
-            'content'=> "Hai ".$name."<br>".$temp_email->isi,
+          'email_penerima' => $pelanggan->email,
+          'subjek' => 'Pembayaran Angsuran',
+          'content' => "Hai " . $name . "<br>" . $temp_email->isi,
         );
 
         $this->mailer->send($sendmail);
@@ -263,11 +262,12 @@ class Setoran_angsuran extends Admin_Controller
     }
   }
 
-  public function buy(){
+  public function buy()
+  {
 
-    $this->form_validation->set_rules('id_angsuran',"angsurannya","trim|required");
-      if($this->form_validation->run() === TRUE){
-     
+    $this->form_validation->set_rules('id_angsuran', "angsurannya", "trim|required");
+    if ($this->form_validation->run() === TRUE) {
+
       $id_pelanggan = $this->input->post('id_pelanggan');
       $id = $this->input->post('id_angsuran');
       $id_inv = $this->input->post('id_inv');
@@ -278,13 +278,13 @@ class Setoran_angsuran extends Admin_Controller
       $sisa1 = str_replace(".", "", $this->input->post('sisa'));
       $sisa = str_replace("Rp", "", $sisa1);
 
-     
-    if($jumlah_bayar < $total){
-      $kurang = $jumlah_bayar;
-    }else {
-      $kurang = $total;
-    }
-    
+
+      if ($jumlah_bayar < $total) {
+        $kurang = $jumlah_bayar;
+      } else {
+        $kurang = $total;
+      }
+
 
       $denda1 = str_replace(".", "", $this->input->post('denda'));
       $denda = str_replace("Rp", "", $denda1);
@@ -292,59 +292,89 @@ class Setoran_angsuran extends Admin_Controller
       $diskon = str_replace("Rp", "", $diskon1);
       $pelanggan = $this->customer_model->getOneBy(array("id_pelanggan" => $id_pelanggan));
       $transaksi = $this->transaksi_model->getOneBy(array("id_invoice" => $id_inv));
-     
+
+
+
+
       //wa
-      $getTemplate_wa = $this->template->getById(1)->result();
-      $temp_wa = $getTemplate_wa[0];
+      $getTemplate_wa_header = $this->template->getById(1)->result();
+      $temp_wa_header = $getTemplate_wa_header[0];
+      $getTemplate_wa_footer = $this->template->getById(7)->result();
+      $temp_wa_footer = $getTemplate_wa_footer[0];
       // email
       $getTemplate_email = $this->template->getById(3)->result();
       $temp_email = $getTemplate_email[0];
 
       $name = $pelanggan->nama;
-      $phone= $pelanggan->no_telp;
-      $message = "Hai, ".$name.$temp_wa->isi;
-      $messageWA = $message. "
-NAMA               : ".$transaksi->nama_barang."
-NO IMEI            : ".$transaksi->imei1."
-KETERANGAN : ".$this->input->post('keterangan')."
-JAM BAYAR     : ".$this->input->post('time')."
-TGL BAYAR      : ".$this->input->post('tgl_bayar')."
-DENDA             : Rp.".number_format($denda, 0, ',', '.')."
-DISKON            : Rp.".number_format($diskon, 0, ',', '.')."
-JUMLAH          : Rp.".number_format($jumlah_bayar, 0, ',', '.')."
+      $phone = $pelanggan->no_telp;
+      $message = "Hai, " . $name . $temp_wa_header->isi;
+      $messageWA = $message . "
+NAMA               : " . $transaksi->nama_barang . "
+NO IMEI            : " . $transaksi->imei1 . "
+KETERANGAN : " . $this->input->post('keterangan') . "
+JAM BAYAR     : " . $this->input->post('time') . "
+TGL BAYAR      : " . $this->input->post('tgl_bayar') . "
+DENDA             : Rp." . number_format($denda, 0, ',', '.') . "
+DISKON            : Rp." . number_format($diskon, 0, ',', '.') . "
+JUMLAH          : Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
+" . $temp_wa_footer->isi;
 
-untuk mengetahui sisa tagihan,
-anda bisa melakukan login di website kami dengan mengisi username dan password.
-website kami : https://jayacitymobile.com
-      ";
+      $WASEND = $this->whatsapp->send($phone, $messageWA);
+      //get send multiple notif
+      $id_merek = $this->input->post("merek");
+      $notif = $this->notif_model->getAllById(array("notification.id_merek" => $id_merek,"notification.tipe" => 2));
+      if ($WASEND) {
+        foreach ($notif as $val) {
+          $phone = $val->no_hp;
+          //echo print_r($val->no_hp);
+          $messageWA =  "Hai " . $val->nama . "
+  Pelanggan dengan nama : " . $pelanggan->nama . "
+  no Telp : " . $pelanggan->no_telp . "
+  Telah melakukan pembayaran :
 
-      $messageEmail = "Hai, ".$name.$temp_email->isi;
-      $messageEmail1 = $messageEmail. "
-NAMA PRODUK   : ".$transaksi->nama_barang."<br>
-NO IMEI       : ".$transaksi->imei1."<br>
-KETERANGAN    : ".$this->input->post('keterangan')."<br>
-JAM BAYAR     : ".$this->input->post('time')."<br>
-TGL BAYAR     : ".$this->input->post('tgl_bayar')."<br>
-DENDA         : ".$this->input->post('denda')."<br>
-DISKON        : ".$this->input->post('diskon')."<br>
-JUMLAH        : ".$this->input->post('jumlah_bayar')."<br>
+  NAMA               : " . $transaksi->nama_barang . "
+  NO IMEI            : " . $transaksi->imei1 . "
+  KETERANGAN : " . $this->input->post('keterangan') . "
+  JAM BAYAR     : " . $this->input->post('time') . "
+  TGL BAYAR      : " . $this->input->post('tgl_bayar') . "
+  DENDA             : Rp." . number_format($denda, 0, ',', '.') . "
+  DISKON            : Rp." . number_format($diskon, 0, ',', '.') . "
+  JUMLAH          : Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
 
-untuk mengetahui sisa tagihan,<br>
-anda bisa melakukan login di website kami dengan mengisi username dan password.<br>
-website kami : https://jayacitymobile.com
-      ";
+  ";
+          $this->whatsapp->send($phone, $messageWA);
+          $sendmail = array(
+            'email_penerima' => $val->email,
+            'subjek' => 'Pembayaran Angsuran',
+            'content' => $messageWA,
+          );
 
-      $this->whatsapp->send($phone, $messageWA);
-      
+          $this->mailer->send($sendmail);
+        }
+      }
+      $messageEmail = "Hai, " . $name . $temp_email->isi;
+      $messageEmail1 = $messageEmail . "
+NAMA PRODUK   : " . $transaksi->nama_barang . "<br>
+NO IMEI       : " . $transaksi->imei1 . "<br>
+KETERANGAN    : " . $this->input->post('keterangan') . "<br>
+JAM BAYAR     : " . $this->input->post('time') . "<br>
+TGL BAYAR     : " . $this->input->post('tgl_bayar') . "<br>
+DENDA         : " . $this->input->post('denda') . "<br>
+DISKON        : " . $this->input->post('diskon') . "<br>
+JUMLAH        : " . $this->input->post('jumlah_bayar') . "<br>
+
+      " . $temp_wa_footer->isi;
+
       $sendmail = array(
-          'email_penerima'=> $pelanggan->email,
-          'subjek'=> 'Pembayaran Angsuran',
-          'content'=> $messageEmail1,
+        'email_penerima' => $pelanggan->email,
+        'subjek' => 'Pembayaran Angsuran',
+        'content' => $messageEmail1,
       );
 
       $this->mailer->send($sendmail);
 
-      ///
+
+
       $data = array(
 
         'pay_time' => $this->input->post('time'),
@@ -358,54 +388,52 @@ website kami : https://jayacitymobile.com
         'sisa' => $sisa,
         'status' => 1,
 
-    );
+      );
 
       $update  = $this->angsuran_model->update($data, array("id_angsuran" => $id));
-      if($update){
+      if ($update) {
         $idAkad = $this->input->post('idAkad');
         $this->session->set_userdata($data);
         $this->session->set_userdata('idnya', $idAkad);
-        $this->session->set_flashdata('message', "Setoran Angsuran Berhasil ditambahkan");        
+        $this->session->set_flashdata('message', "Setoran Angsuran Berhasil ditambahkan");
         redirect('Setoran_angsuran');
-      }else{
+      } else {
         $this->session->set_flashdata('message', "Setoran Angsuran Gagal ditambahkan");
         redirect('Setoran_angsuran');
       }
+    } else {
 
-    }else{
-     
-    if($this->data['is_can_read']){
-      $this->data['content'] = 'admin/setoran_angsuran/bayar_v';   
-    }else{
-      $this->data['content'] = 'errors/html/restrict'; 
+      if ($this->data['is_can_read']) {
+        $this->data['content'] = 'admin/setoran_angsuran/bayar_v';
+      } else {
+        $this->data['content'] = 'errors/html/restrict';
+      }
+
+      $this->load->view('admin/layouts/page', $this->data);
     }
-    
-    $this->load->view('admin/layouts/page',$this->data);  
-
   }
-}
 
 
 
-//   function pdf()
-//   {
+  //   function pdf()
+  //   {
 
-//     $id = $this->uri->segment(3);
-//     $angsuran = $this->angsuran_model->getOneByAngsuran(array("id_angsuran" => $id));
-//     $this->data['angsuran'] = $angsuran;
-//     $pengaturan = $this->pengaturan_model->getOneBy();
-//     $id_bank = (!empty($pengaturan)) ? $pengaturan->id_bank : "";
-//     $bank = $this->rekening_model->getOneBy(array("id" => $id_bank));
-//     $this->data['pengaturan'] = $pengaturan;
-//     $this->data['bank'] = $bank;
+  //     $id = $this->uri->segment(3);
+  //     $angsuran = $this->angsuran_model->getOneByAngsuran(array("id_angsuran" => $id));
+  //     $this->data['angsuran'] = $angsuran;
+  //     $pengaturan = $this->pengaturan_model->getOneBy();
+  //     $id_bank = (!empty($pengaturan)) ? $pengaturan->id_bank : "";
+  //     $bank = $this->rekening_model->getOneBy(array("id" => $id_bank));
+  //     $this->data['pengaturan'] = $pengaturan;
+  //     $this->data['bank'] = $bank;
 
-//     $this->load->library('Pdf');
-//     $this->pdf->setPaper('A4', 'portrait');
-//     $this->pdf->filename = "Kwitansi" . date('dmy') . ".pdf";
-//     $this->pdf->load_view('admin/laporan_pembayaran/cetak_v', $this->data, true);
-//   }
-  
-   function pdf()
+  //     $this->load->library('Pdf');
+  //     $this->pdf->setPaper('A4', 'portrait');
+  //     $this->pdf->filename = "Kwitansi" . date('dmy') . ".pdf";
+  //     $this->pdf->load_view('admin/laporan_pembayaran/cetak_v', $this->data, true);
+  //   }
+
+  function pdf()
   {
 
     $id = $this->uri->segment(3);
@@ -422,19 +450,19 @@ website kami : https://jayacitymobile.com
     // $this->pdf->filename = "Kwitansi" . date('dmy') . ".pdf";
     // $this->pdf->load_view('admin/laporan_pembayaran/cetak_v', $this->data, true);
     $this->load->library('pdfgenerator');
-        
-           
-        // filename dari pdf ketika didownload
-        $file_pdf = 'KWITANSI';
-        // setting paper
-        $paper = 'A4';
-        //orientasi paper potrait / landscape
-        $orientation = "portrait";
-        
-	     $html = $this->load->view('admin/laporan_pembayaran/cetak_v',$this->data, true);	    
-        
-        // run dompdf
-        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+
+
+    // filename dari pdf ketika didownload
+    $file_pdf = 'KWITANSI';
+    // setting paper
+    $paper = 'A4';
+    //orientasi paper potrait / landscape
+    $orientation = "portrait";
+
+    $html = $this->load->view('admin/laporan_pembayaran/cetak_v', $this->data, true);
+
+    // run dompdf
+    $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
   }
 
   function cetak_kartu()
@@ -517,7 +545,4 @@ website kami : https://jayacitymobile.com
       $this->load->view('admin/layouts/page', $this->data);
     }
   }
-
- 
-
 }

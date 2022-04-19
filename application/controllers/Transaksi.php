@@ -10,6 +10,7 @@ class Transaksi extends Admin_Controller
     $this->load->model('hasil_survey_model');
     $this->load->model('transaksi_model');
     $this->load->model('cicilan_model');
+    $this->load->model('brand_model');
   }
   public function index()
   {
@@ -196,6 +197,7 @@ class Transaksi extends Admin_Controller
 
       $this->data['pelanggan'] = $this->hasil_survey_model->getAllById(array('hasil_survey.status' => '1'));
       $this->data['lama_cicilan'] = $this->cicilan_model->getAllById();
+      $this->data['brand'] = $this->brand_model->getAllById(); 
       $this->data['content'] = 'admin/transaksi/create_v';
       $this->data['waktu_input'] = $date;
       $this->data['kode'] = 'P' . $kode;
@@ -212,6 +214,7 @@ class Transaksi extends Admin_Controller
     $this->data['data'] = $data[0];
     $this->data['pelanggan'] = $this->hasil_survey_model->getAllById(array('hasil_survey.status' => '1'));
     $this->data['lama_cicilan'] = $this->cicilan_model->getAllById();
+    $this->data['brand'] = $this->brand_model->getAllById();
     $this->data['content'] = 'admin/transaksi/view_v';
     $this->data['waktu_input'] = $data[0]->waktu_input;
     $this->load->view('admin/layouts/page', $this->data);
@@ -274,6 +277,7 @@ class Transaksi extends Admin_Controller
       $data = $this->transaksi_model->getAllById(array("transaksi.id_transaksi" => $id));
       $this->data['data'] = $data[0];
       $this->data['pelanggan'] = $this->hasil_survey_model->getAllById(array('hasil_survey.status' => '1'));
+      $this->data['brand'] = $this->brand_model->getAllById(); 
       $this->data['lama_cicilan'] = $this->cicilan_model->getAllById();
 
       $this->data['content'] = 'admin/transaksi/edit_v';
