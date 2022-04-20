@@ -92,3 +92,7 @@ ERROR - 2022-04-19 10:20:58 --> Severity: Warning --> number_format() expects pa
 ERROR - 2022-04-19 10:21:00 --> Severity: Warning --> number_format() expects parameter 1 to be float, string given E:\xampp72\htdocs\git\jayacitymobile\application\controllers\Setoran_angsuran.php 342
 ERROR - 2022-04-19 10:21:10 --> Severity: Warning --> number_format() expects parameter 1 to be float, string given E:\xampp72\htdocs\git\jayacitymobile\application\controllers\Setoran_angsuran.php 319
 ERROR - 2022-04-19 10:21:12 --> Severity: Warning --> number_format() expects parameter 1 to be float, string given E:\xampp72\htdocs\git\jayacitymobile\application\controllers\Setoran_angsuran.php 342
+ERROR - 2022-04-19 22:49:33 --> Severity: Warning --> Invalid argument supplied for foreach() C:\xampp1\htdocs\git1\jayacitymobile\application\views\admin\akad\create_v.php 29
+ERROR - 2022-04-19 23:01:47 --> Severity: Notice --> Undefined property: stdClass::$nama_barang C:\xampp1\htdocs\git1\jayacitymobile\application\controllers\Cron.php 39
+ERROR - 2022-04-19 23:01:47 --> Severity: Notice --> Undefined property: stdClass::$imei1 C:\xampp1\htdocs\git1\jayacitymobile\application\controllers\Cron.php 40
+ERROR - 2022-04-19 23:14:54 --> Severity: error --> Exception: syntax error, unexpected '0' (T_LNUMBER), expecting ',' or ')' C:\xampp1\htdocs\git1\jayacitymobile\application\controllers\Cron.php 42
