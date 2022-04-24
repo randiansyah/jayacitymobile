@@ -10,6 +10,7 @@ class Laporan_pembayaran extends Admin_Controller
     $this->load->model('customer_model');
     $this->load->model('Laporan_pembayaran_model');
     $this->load->model('cicilan_model');
+    $this->load->model('karyawan_model','karyawan');
   }
   public function index()
   {
@@ -18,6 +19,7 @@ class Laporan_pembayaran extends Admin_Controller
       $this->data['content'] = 'admin/laporan_pembayaran1/list_v';
       $this->data['pelanggan'] = $this->akad_model->getAllById(array('is_deleted' => '0'));
       $this->data['lama_cicilan'] = $this->cicilan_model->getAllById();
+
     } else {
       $this->data['content'] = 'errors/html/restrict';
     }
@@ -25,14 +27,15 @@ class Laporan_pembayaran extends Admin_Controller
     $this->load->view('admin/layouts/page', $this->data);
   }
 
+
   public function dataList()
   {
     $columns = array(
       0 => '',
-      1 => '',
-      2 => '',
-      3 => '',
-      4 => '',
+      1 => 'angsuran.id_pelanggan',
+      2 => 'angsuran.cicilan',
+      3 => 'angsuran.total_bayar',
+      4 => 'angsuran.tgl_bayar',
       5 => '',
       6 => '',
       7 => '',
@@ -44,7 +47,6 @@ class Laporan_pembayaran extends Admin_Controller
     $dir = $this->input->post('order')[0]['dir'];
     $search = array();
     $where = array();
-    $setting_hari = 0;
     $limit = 0;
     $start = 0;
     $jatuh_tempo = $this->Laporan_pembayaran_model->getOneJatuh_tempo();
@@ -54,7 +56,6 @@ class Laporan_pembayaran extends Admin_Controller
 
     $searchColumn = $this->input->post('columns');
     $isSearchColumn = false;
-
   
 
      if (!empty($searchColumn[1]['search']['value'])) {
@@ -66,13 +67,13 @@ class Laporan_pembayaran extends Admin_Controller
     if (!empty($searchColumn[2]['search']['value'])) {
       $value = $searchColumn[2]['search']['value'];
       $isSearchColumn = true;
-      $where['tgl_jatuh_tempo >='] = date("Y-m-d", strtotime($value));
+      $where['angsuran.tgl_bayar >='] = date("d-m-Y", strtotime($value));
     }
 
     if (!empty($searchColumn[3]['search']['value'])) {
       $value = $searchColumn[3]['search']['value'];
       $isSearchColumn = true;
-      $where['tgl_jatuh_tempo <='] =  date("Y-m-d", strtotime($value));
+      $where['angsuran.tgl_bayar <='] =  date("d-m-Y", strtotime($value));
     }
 
 
@@ -90,6 +91,23 @@ class Laporan_pembayaran extends Admin_Controller
     $new_data = array();
     if (!empty($datas)) {
       foreach ($datas as $key => $data) {
+
+        if ( strval($data->teller) !== strval(intval($data->teller)) ) {
+          $teller = $data->teller;
+        }else {
+
+          $karyawan = $this->karyawan->getAllById(array("id" => $data->teller));
+          $teller = (!empty($karyawan)) ? $karyawan[0]->nama : "";
+        }
+      
+        if($data->created_by == 1){
+        $created_by = "Admin";
+        }else {
+          $created = $this->karyawan->getAllById(array("id_pengguna" => $data->created_by));
+          $created_by = (!empty($created)) ? $created[0]->nama : "";
+        }
+        
+
    
         if ($this->data['is_can_edit']) {
           $cetak = "<a target='blank' href='" . base_url() . "bukti_pembayaran/pdf/" . $data->id_angsuran . "'><i class='fa fa-print'></i> Cetak</a> ";
@@ -104,11 +122,14 @@ class Laporan_pembayaran extends Admin_Controller
         $nestedData['id_invoice']  = $data->id_invoice;
         $nestedData['id_pelanggan']  = $view_url;
         $nestedData['cicilan']  = $data->cicilan;
-        $nestedData['jumlah_cicilan']  = "Rp. " . number_format($data->jumlah_cicilan, 0, ".", ".");
+        $nestedData['barang']  = $data->nama_barang;
+        $nestedData['created_by']  = $created_by;
+        $nestedData['teller']  = $teller;
         $nestedData['jumlah_bayar']  = "Rp. " . number_format($data->jumlah_bayar, 0, ".", ".");
-        $nestedData['tgl_jatuh_tempo']  = date("d-m-Y", strtotime($data->tgl_jatuh_tempo));
-        $nestedData['sisa']  = date("d-m-Y", strtotime($data->tgl_bayar));;
-        $nestedData['selisih']  = $data->selisih . ' Hari';
+        $nestedData['denda']  = "Rp. " . number_format($data->denda, 0, ".", ".");
+        $nestedData['diskon']  = "Rp. " . number_format($data->diskon, 0, ".", ".");
+        $nestedData['total_bayar']  = "Rp. " . number_format($data->total_bayar, 0, ".", ".");
+        $nestedData['tgl_bayar']  = $data->pay_time.'  '.$data->tgl_bayar;
         $nestedData['aksi'] = $cetak;
 
 

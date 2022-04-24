@@ -165,6 +165,21 @@ class Customer_model extends CI_Model
         } 
         return FALSE;
     } 
+    function getAllByPelanggan($where)
+    {
+        $this->db->select("pelanggan.*")->from("pelanggan"); 
+        $this->db->where($where);
+        
+       	$result = $this->db->get();
+        if($result->num_rows()>0)
+        {
+            return $result->result();  
+        }
+        else
+        {
+            return null;
+        }
+    }
 
 	function getAllBy($limit,$start,$search,$col,$dir,$where)
     {

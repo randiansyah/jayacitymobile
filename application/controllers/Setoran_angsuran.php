@@ -16,6 +16,7 @@ class Setoran_angsuran extends Admin_Controller
     $this->load->model('pengaturan_model');
     $this->load->model('rekening_model');
     $this->load->model('transaksi_model');
+    $this->load->model('karyawan_model');
     $this->load->model("template_email_model", "template");
     $this->load->library('mailer');
     $this->load->library('whatsapp');
@@ -26,6 +27,7 @@ class Setoran_angsuran extends Admin_Controller
     $this->load->helper('url');
     if ($this->data['is_can_read']) {
       $this->data['content'] = 'admin/angsuran/list_v';
+
       $this->data['pelanggan'] = $this->akad_model->getAllById(array('is_deleted' => '0'));
       $this->data['lama_cicilan'] = $this->cicilan_model->getAllById();
     } else {
@@ -253,6 +255,8 @@ class Setoran_angsuran extends Admin_Controller
       $id_pelanggan = (!empty($akad)) ? $akad[0]->id_pelanggan : "";
       $id_invoice = (!empty($akad)) ? $akad[0]->id_invoice : "";
       $transaksi = $this->transaksi_model->getOneBy(array("id_invoice" => $id_invoice));
+      $this->data['tellernya'] = $this->karyawan_model->getAllById();
+      $this->data['karyawan'] = $this->karyawan_model;
       $this->data['idakad'] = $id;
       $this->data['akad'] = $akad[0];
       $this->data['transaksi'] = $transaksi;
@@ -321,8 +325,8 @@ JUMLAH          : Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
 
       $WASEND = $this->whatsapp->send($phone, $messageWA);
       //get send multiple notif
-      $id_merek = $this->input->post("merek");
-      $notif = $this->notif_model->getAllById(array("notification.id_merek" => $id_merek,"notification.tipe" => 2));
+
+      $notif = $this->notif_model->getAllById(array("notification.tipe" => 2));
       if ($WASEND) {
         foreach ($notif as $val) {
           $phone = $val->no_hp;
@@ -373,7 +377,13 @@ JUMLAH        : " . $this->input->post('jumlah_bayar') . "<br>
 
       $this->mailer->send($sendmail);
 
-
+      $teller =  $this->input->post('teller');
+      if (!empty($teller)) {
+        $idTeller = $teller;
+      } else {
+        $karyawan = $this->karyawan_model->getAllById(array("id_pengguna" => $this->data['users']->id));
+        $idTeller =  (!empty($karyawan)) ? $karyawan[0]->id : "";
+      }
 
       $data = array(
 
@@ -381,11 +391,12 @@ JUMLAH        : " . $this->input->post('jumlah_bayar') . "<br>
         'tgl_bayar' => $this->input->post('tgl_bayar'),
         'denda' => $denda,
         'diskon' => $diskon,
-        'teller' => $this->input->post('teller'),
+        'teller' => $idTeller,
         'keterangan' => $this->input->post('keterangan'),
         'jumlah_bayar' => $kurang,
         'total_bayar' => $jumlah_bayar,
         'sisa' => $sisa,
+        'created_by' => $this->data['users']->id,
         'status' => 1,
 
       );

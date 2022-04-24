@@ -4,6 +4,7 @@ define([
     "bootstrap", 
     "highchart",
     "sidebar",
+    "select2",
     "datatables",
     "datatablesBootstrap",
     ], function (
@@ -24,11 +25,13 @@ define([
             $(".loading").hide();
 		}, 
         initEvent : function(){  
+            $('.select2').select2();
+            var suburl = $('#suburl').val();
             App.table = $('#table').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
-                    "url": App.baseUrl+"brand/dataList",
+                    "url": App.baseUrl+suburl+"/dataList",
                     "dataType": "json",
                     "type": "POST",
                 },

@@ -125,6 +125,15 @@
                   $total_diskon = 0;
                   $total_bayar1 = 0;
                   foreach ($angsuran as $data => $val) {
+                  //teller
+                  if ( strval($val->teller) !== strval(intval($val->teller)) ) {
+                    $teller = $val->teller;
+                  }else {
+          
+                    $getKaryawan = $karyawan->getAllById(array("id" => $val->teller));
+                    $teller = (!empty($getKaryawan)) ? $getKaryawan[0]->nama : "";
+                  }
+
                     $total_bayar += $val->jumlah_bayar - (int)$val->denda + (int)$val->diskon;
                     $total_bayar1 += $val->jumlah_bayar + (int)$val->denda + (int)$val->diskon;
                     $total_denda += $val->denda ;
@@ -208,7 +217,7 @@
                         <?php echo $tgl ?>
                       </td>
                       <td>
-                        <?php echo $val->teller; ?>
+                        <?php echo $teller; ?>
                       </td>
 
                       <td>
@@ -336,10 +345,24 @@
 
 
             <div class="form-group row">
-              <div class="col-md-6">
+              <?php if($this->data['users']->id == 1){ ?>
+                <div class="col-md-6">
               <label>TELLER</label>
-              <input type="text" class="form-control teller" name="teller" autocomplete="off">
+              <select id="teller" name="teller" class="form-control select2">
+              <option value="" >Pilih Teller</option>
+
+<?php
+
+foreach ($tellernya as $nameTeller) { ?>
+
+  <option value="<?php echo $nameTeller->id; ?>"><?php echo  $nameTeller->nama ?></option>
+<?php }
+?>
+</select>
+              
               </div>
+             <?php } else {} ?>
+          
               <div class="col-md-6">
                 <label>KETERANGAN</label>
                 <input type="text" name="keterangan" class="keterangan form-control">

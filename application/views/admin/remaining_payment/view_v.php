@@ -97,6 +97,14 @@
                   $total_denda = 0;
                   $total_diskon = 0;
                   foreach ($angsuran as $data => $val) {
+                    if ( strval($val->teller) !== strval(intval($val->teller)) ) {
+                      $teller = $val->teller;
+                    }else {
+            
+                      $getKaryawan = $karyawan->getAllById(array("id" => $val->teller));
+                      $teller = (!empty($getKaryawan)) ? $getKaryawan[0]->nama : "";
+                    }
+
                     $total_bayar += $val->jumlah_bayar;
                  
                     $sisa = $val->jumlah_cicilan  - $val->jumlah_bayar;
@@ -169,7 +177,7 @@
 
                      <td><?php echo $buy; ?></td>
 
-                     <td><?php echo $val->teller; ?></td>
+                     <td><?php echo $teller; ?></td>
                      <td><?php echo $print; ?></td>
                    
 
@@ -218,7 +226,15 @@
        
     
       </div>
+      <div class="col-xs-12 table-responsive">
+   
+       <h4 class="box-title">PEMBAYARAN</h3>
+       <a href="<?php echo base_url('History_pembayaran/step1/').$val->id_akad ?>"> <button type="button" class="btn btn-success btn-lg btn-block">Bayar Sekarang</button>
+    </a>
+                </div>
     </form>
+         
+ 
   </div>
   </div>
 </section>

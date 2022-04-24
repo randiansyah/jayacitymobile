@@ -25,12 +25,22 @@ class Angsuran_model extends CI_Model
         }
         return FALSE;
     }
-
+    public function getAllBySnap($where = array()){
+        $this->db->select("*,a.lama_cicilan,angsuran.tgl_jatuh_tempo as tgl_jth,DATEDIFF(DATE_ADD(angsuran.tgl_jatuh_tempo, INTERVAL 0 DAY), CURDATE()) as selisih")->from("angsuran"); 
+        $this->db->JOIN('akad as a','a.id_akad=angsuran.id_akad');
+        $this->db->where('angsuran.status', 0);
+         $this->db->where($where); 
+         $query = $this->db->get();
+         if ($query->num_rows() >0){  
+             return $query->result(); 
+         } 
+         return FALSE;
+     }
     
     
     public function getAllById($where = array()){
-       $this->db->select("*,,DATEDIFF(DATE_ADD(angsuran.tgl_jatuh_tempo, INTERVAL 0 DAY), CURDATE()) as selisih")->from("angsuran"); 
-     
+       $this->db->select("*,DATEDIFF(DATE_ADD(angsuran.tgl_jatuh_tempo, INTERVAL 0 DAY), CURDATE()) as selisih")->from("angsuran"); 
+       
         $this->db->where($where); 
         $query = $this->db->get();
         if ($query->num_rows() >0){  
@@ -75,7 +85,7 @@ class Angsuran_model extends CI_Model
     function getAllBy($limit,$start,$search,$col,$dir,$where)
     {
         $this->db->select("akad.*")->from("akad"); 
-              $this->db->JOIN('pelanggan', 'pelanggan.id_pelanggan=akad.id_pelanggan');
+        $this->db->JOIN('pelanggan', 'pelanggan.id_pelanggan=akad.id_pelanggan');
         $this->db->limit($limit,$start)->order_by($col,$dir);
         $this->db->where($where); 
         $this->db->where("is_deleted=0");

@@ -45,6 +45,7 @@
                   <option value="" required>Pilih salah satu</option>
                   <option value="1" >Jatuh Tempo</option>
                   <option value="2" >Pembayaran</option>
+                  <option value="3" >Pembayaran Otomatis</option>
                  
                 </select>
           </div>   

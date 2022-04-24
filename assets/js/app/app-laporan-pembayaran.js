@@ -64,17 +64,20 @@ define([
                     "type": "POST",
                 },
                 "columns": [
-                    { "data": "id" }, 
-                  
+                    { "data": "id" },            
                     { "data": "id_pelanggan" }, 
                     { "data": "cicilan" }, 
-                    { "data": "jumlah_cicilan" }, 
                     { "data": "jumlah_bayar" }, 
-                    { "data": "tgl_jatuh_tempo" },
-                    { "data": "sisa" },
+                    { "data": "denda" }, 
+                    { "data": "diskon" }, 
+                    { "data": "total_bayar" }, 
+                    { "data": "tgl_bayar" },
+                    { "data": "teller" },
+                    { "data": "barang" },
+                    { "data": "created_by" },
         
                 ],
-               "order": [[0, 'desc']]          
+               "order": [[4, 'desc']]          
             });
 
     
@@ -145,10 +148,11 @@ define([
             
         searchTable:function(){ 
             $('#filter').on('click', function () {
-                console.log("SEARCH");
+               
                 var pelanggan   = $("#pelanggan").val();
                 var start_date   = $("#periode_start").val();
                 var end_date   = $("#periode_end").val();
+                console.log(start_date);
                 App.table.column(1).search(pelanggan,true,true);
                 App.table.column(2).search(start_date,true,true);
                 App.table.column(3).search(end_date,true,true);

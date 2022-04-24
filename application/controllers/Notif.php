@@ -75,7 +75,12 @@ class Notif extends Admin_Controller
           $type = "Jatuh Tempo";
         } else if ($data->tipe == 2) {
           $type = "Pembayaran";
+        } else if ($data->tipe == 3) {
+          $type = "Pembayaran Otomatis";
+        } else {
+          $type = "";
         }
+
         $nestedData['id']   = $data->id_notif;
         $nestedData['id_karyawan']         = $data->nama;
         $nestedData['id_merek']         = $data->name;
@@ -144,7 +149,7 @@ class Notif extends Admin_Controller
 
       );
 
-      $update = $this->notif_model->update($data,array("id_notif" => $id));
+      $update = $this->notif_model->update($data, array("id_notif" => $id));
 
       if ($update) {
         $this->session->set_flashdata('message', "Notif Berhasil diubah");
@@ -156,7 +161,7 @@ class Notif extends Admin_Controller
     } else {
 
       if ($this->data['is_can_read']) {
-            
+
         $this->data['notif'] = $this->notif_model->getOneBy(array("id_notif" => $id));
         $this->data['karyawan'] = $this->karyawan_model->getAllbyId();
         $this->data['brand'] = $this->brand_model->getAllbyId();

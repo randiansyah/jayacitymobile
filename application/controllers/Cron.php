@@ -161,7 +161,7 @@ JUMLAH            : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
                 $phone = $val->no_hp;
                 $message = "Hi, $val->nama";
                 $messageWA = $message . "
-pelanggan kamu angsurannya jatuh tempo hari ini
+pelanggan kamu 3 hari lagi akan jatuh tempo
 berikut rinciannya   :
 NAMA               : " . $val->namaPelanggan . "
 NO TELP           : " . $val->telpPelanggan . "
@@ -181,7 +181,7 @@ JUMLAH            : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
                     'email_penerima'=> $val->email,
                     'subjek'=> $val->keterangan,
                     'content'=> "Hi, $val->nama" . " 
-                    pelanggan kamu angsurannya jatuh tempo hari ini
+                    pelanggan kamu 3 hari lagi akan jatuh tempo
                     berikut rinciannya   :
                     <br>NAMA              : " . $val->namaPelanggan . "
                     <br>NO TELP           : " . $val->telpPelanggan . "

@@ -10,7 +10,6 @@
 </section>
 
 <section class="content">
-
     <div class="box box-bottom">
         <div class="box-header with-border">
             <h3 class="box-title">Pencarian</h3>
@@ -104,16 +103,19 @@
                                 ?>
                             </div>
                         <?php } ?>
-                        <table class="table table-striped" id="table">
+                        <table class="table table-striped" id="table" style="width:100%">
                             <thead>
                                 <th width="5">No.</th>
-
-                                <th>Nama</th>
-                                <th width="5">angsuran</th>
-                                <th>Jumlah cicilan</th>
+                                <th width="10" >Nama</th>
+                                <th width="5">Angsuran</th>
                                 <th width="5">Pembayaran</th>
-                                <th>Tgl Jatuh Tempo</th>
-                                <th>Tgl Bayar</th>
+                                <th width="5">Denda</th>
+                                <th width="5">Diskon</th>
+                                <th width="5">Total Bayar</th>
+                                <th width="20">Tgl Bayar</th>
+                                <th width="10">Teller</th>
+                                <th width="10">Barang</th>
+                                <th width="10">Created By</th>
                             </thead>
                         </table>
                     </div>

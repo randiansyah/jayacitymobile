@@ -92,7 +92,7 @@ define([
         
         
             ],
-                "order": [[0, 'ASC']]
+                "order": [[0, 'DESC']]
             });
 
         },
@@ -145,7 +145,7 @@ define([
                 const denda = $(this).data('denda');
                 const diskon = $(this).data('diskon');
                 const total = $(this).data('total');
-                const teller = $(this).data('teller');
+      
                 const keterangan = $(this).data('keterangan');
 
                  //convert denda
@@ -183,7 +183,7 @@ define([
 
             
                 $('.id_angsuran').val(id);
-                $('.teller').val(teller);
+         
                 $('.denda').val('Rp. '+rupiah);
                 $('.keterangan').val(keterangan);
                 $('.diskon').val('Rp. '+rupiah2);

@@ -144,10 +144,11 @@ define([
             
         searchTable:function(){ 
             $('#filter').on('click', function () {
-                console.log("SEARCH");
+              
                 var pelanggan   = $("#pelanggan").val();
                 var start_date   = $("#periode_start").val();
                 var end_date   = $("#periode_end").val();
+                console.log(start_date);
                 App.table.column(1).search(pelanggan,true,true);
                 App.table.column(2).search(start_date,true,true);
                 App.table.column(3).search(end_date,true,true);

@@ -85,22 +85,16 @@ class Laporan_pembayaran_model extends CI_Model
     {
 
 
-        $this->db->select("angsuran.*,STR_TO_DATE(tgl_bayar, '%Y-%m-%d %H:%i:%s') as date_buy,DATEDIFF(DATE_ADD(angsuran.tgl_jatuh_tempo, INTERVAL 0 DAY), CURDATE()) as selisih 
+        $this->db->select("angsuran.*,s.nama_barang,s.merek
         ")->from("angsuran");
-        $this->db->JOIN('pelanggan', 'pelanggan.id_pelanggan=angsuran.id_pelanggan');
-
-        $this->db->limit($limit, $start)->order_by($col, $dir);
+        $this->db->JOIN('pelanggan as p', 'p.id_pelanggan=angsuran.id_pelanggan');
+        $this->db->JOIN('transaksi as s', 's.id_invoice=angsuran.id_invoice');
         $this->db->like($search);
         $this->db->where($where);
-       $this->db->where('status=1 AND JUMLAH_BAYAR > 0 AND tgl_bayar <= tgl_jatuh_tempo');
-       $this->db->order_by('tgl_jatuh_tempo', 'DESC');
-  
+        $this->db->where('angsuran.status=1');
+        $this->db->limit($limit, $start)->order_by($col, $dir);
 
-        // $this->db->where('angsuran.tgl_jatuh_tempo < now()');
-        // $this->db->or_like('angsuran.tgl_jatuh_tempo > now() - interval 0 day');
-        //  $this->db->like('status',$status_default);
-        //   $this->db->order_by('angsuran.tgl_jatuh_tempo < now()', 'DESC');
- 
+
         $result = $this->db->get();
         if ($result->num_rows() > 0) {
             return $result->result();
@@ -126,11 +120,12 @@ class Laporan_pembayaran_model extends CI_Model
     function getCountAllBy($limit, $start, $search, $order, $dir, $where, $setting_hari)
     {
         $this->db->select("angsuran.*")->from("angsuran");
-        //    $this->db->where('status','0');
-        $this->db->where('angsuran.status = 0 AND angsuran.tgl_jatuh_tempo < now() ' . $setting_hari . '');
-        //    $this->db->or_like('angsuran.tgl_jatuh_tempo > now() - interval 0 day');
-        //    $this->db->where('angsuran.tgl_jatuh_tempo < now()');
-        //  $this->db->order_by('angsuran.tgl_jatuh_tempo < now()', 'DESC');
+        $this->db->JOIN('pelanggan as p', 'p.id_pelanggan=angsuran.id_pelanggan');
+        $this->db->JOIN('transaksi as s', 's.id_invoice=angsuran.id_invoice');
+        $this->db->like($search);
+        $this->db->where($where);
+        $this->db->where('angsuran.status=1');
+
 
         if (!empty($search)) {
             foreach ($search as $key => $value) {

@@ -65,7 +65,7 @@ class Transaksi_model extends CI_Model
     
 	public function getAllById($where = array()){
          $this->db->select("*")->from("transaksi"); 
-         $this->db->join("pelanggan","pelanggan.id_pelanggan=transaksi.id_pelanggan");
+         $this->db->join("pelanggan as p","p.id_pelanggan=transaksi.id_pelanggan");
 		$this->db->where($where); 
 		$query = $this->db->get();
 		if ($query->num_rows() >0){  

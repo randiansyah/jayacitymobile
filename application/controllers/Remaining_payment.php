@@ -9,6 +9,7 @@ class Remaining_payment extends Admin_Controller
     $this->load->model('customer_model');
     $this->load->model('akad_model');
     $this->load->model('angsuran_model');
+    $this->load->model('karyawan_model');
     $this->load->model('transaksi_model');
     $this->load->model('angsuran_titipan_model');
     $this->load->model('cicilan_model');
@@ -270,6 +271,7 @@ class Remaining_payment extends Admin_Controller
       $angsuran = $this->angsuran_model->getAllById(array("id_akad" => $id));
       $this->data['akad'] = $akad[0];
       $this->data['pelanggan'] = $pelanggan;
+      $this->data['karyawan'] = $this->karyawan_model;
       $this->data['angsuran'] = $angsuran;
       $this->data['transaksi'] = $transaksi;
       $this->data['content'] = 'admin/remaining_payment/view_v';
