@@ -45,8 +45,6 @@
               <th>No</th>
                <th>Jumlah Bayar</th> 
                <th>Tipe Pembayaran</th> 
-               <th>Bank</th>
-               <th>Va Number</th> 
                <th>Waktu Transaksi</th> 
                <th>Status</th>
                <th>Cara Transfer</th>

@@ -1,0 +1,9 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2022-04-25 07:38:32 --> Severity: Notice --> Undefined property: stdClass::$status_code E:\xampp72\htdocs\git\jayacitymobile\application\libraries\Midtrans.php 133
+ERROR - 2022-04-25 07:38:32 --> Severity: error --> Exception: Midtrans Error (400): transaction_details.gross_amount is not equal to the sum of item_details E:\xampp72\htdocs\git\jayacitymobile\application\libraries\Midtrans.php 136
+ERROR - 2022-04-25 07:38:42 --> Severity: Notice --> Undefined property: stdClass::$status_code E:\xampp72\htdocs\git\jayacitymobile\application\libraries\Midtrans.php 133
+ERROR - 2022-04-25 07:38:42 --> Severity: error --> Exception: Midtrans Error (400): transaction_details.gross_amount is required,transaction_details.gross_amount is not a number,transaction_details.gross_amount is not equal to the sum of item_details E:\xampp72\htdocs\git\jayacitymobile\application\libraries\Midtrans.php 136
+ERROR - 2022-04-25 08:22:05 --> Severity: Notice --> Undefined index: va_numbers E:\xampp72\htdocs\git\jayacitymobile\application\controllers\History_pembayaran.php 224
+ERROR - 2022-04-25 08:22:05 --> Severity: Notice --> Undefined index: va_numbers E:\xampp72\htdocs\git\jayacitymobile\application\controllers\History_pembayaran.php 225
+ERROR - 2022-04-25 08:22:05 --> Query error: Column 'bank' cannot be null - Invalid query: INSERT INTO `transaksi_midtrans` (`id_pengguna`, `id_angsuran`, `id_pelanggan`, `id_invoice`, `order_id`, `transaction_id`, `gross_amount`, `payment_type`, `transaction_time`, `transaction_status`, `bank`, `va_number`, `pdf_url`, `status_code`) VALUES ('1', '817,', '155', 'M0002', '1320213878', '180b8406-d87e-4b9b-82a2-009af70d17a2', '383333.00', 'echannel', '2022-04-25 08:22:03', 'pending', NULL, NULL, 'https://app.midtrans.com/snap/v1/transactions/586967d0-ea10-4ae0-82e4-50edbaa9e71b/pdf', '201')

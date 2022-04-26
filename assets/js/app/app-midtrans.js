@@ -39,8 +39,6 @@ define([
                     { "data": "id" },
                     { "data": "gross_amount" },
                     { "data": "payment_type" },
-                    { "data": "bank" },
-                    { "data": "va_number" },
                     { "data": "transaction_time" },
                     { "data": "status_code" },
                     { "data": "pdf_url" },
