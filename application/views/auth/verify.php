@@ -37,7 +37,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Harap masukan email dan password untuk memulai</p>
+    <p class="login-box-msg">Harap masukan kode OTP</p>
     <?php if(!empty($this->session->flashdata('message_error'))){?>
           <div class="alert alert-danger">
             <?php   
@@ -54,19 +54,16 @@
             ?>
             </div>
           <?php }?>
-    <form action="<?php echo base_url();?>auth/login" method="post" id="form-login">
+    <form action="<?php echo base_url();?>auth/verify" method="post" id="form-login">
+	<input type="hidden" name="mobile" value="<?php echo $mobile; ?>"  />
       <div class="form-group has-feedback">
-        <input type="identity" class="form-control" name="identity" placeholder="Email atau no telp">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" name="password" placeholder="Password">
+        <input type="password" class="form-control" name="otp" placeholder="Masukan OTP anda">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" style="background-color: #27ae60;border-color: #27ae60;" class="btn btn-primary btn-block btn-flat" id="btn-login">Masuk</button>
+          <button type="submit" style="background-color: #27ae60;border-color: #27ae60;" class="btn btn-primary btn-block btn-flat" id="btn-login">verify</button>
         </div>
 
         <!-- /.col -->

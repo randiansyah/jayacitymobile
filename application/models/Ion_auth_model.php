@@ -1031,7 +1031,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
+		$query = $this->db->select($this->identity_column . ', phone, email, id, password, active, last_login')
 						  ->where($this->identity_column, $identity)
 						  ->limit(1)
 						  ->order_by('id', 'desc')
@@ -1094,6 +1094,30 @@ class Ion_auth_model extends CI_Model
 		$this->set_error('login_unsuccessful');
 
 		return FALSE;
+	}
+
+	public function verify($mobile, $otp) {
+		$data = [];
+		$this->db->where(['phone' => $mobile, 'otp' => $otp]);
+		$query = $this->db->get('users');
+		$result = $query->row();
+		if($result) {
+			$data = [
+				'login_status' 	=> TRUE,
+			];
+		}
+		return $data;
+	}
+
+	public function check_mobile($mobile) {
+		$this->db->where(['phone' => $mobile]);
+		$query 	= $this->db->get('users');
+		$result = $query->num_rows();
+		return $result;
+	}
+
+	public function update_otp($mobile, $data) {
+		return $this->db->update('users', $data, ["phone"=>$mobile]);
 	}
 
 	/**

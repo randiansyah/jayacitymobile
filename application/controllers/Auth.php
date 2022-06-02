@@ -13,6 +13,7 @@ class Auth extends CI_Controller
 		parent::__construct();
 		$this->load->database();
 		$this->load->library(array('ion_auth', 'form_validation'));
+		$this->load->library('whatsapp');
 		$this->load->helper(array('url', 'language'));
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
@@ -59,13 +60,48 @@ class Auth extends CI_Controller
 	/**
 	 * Log the user in
 	 */
+	// public function login()
+	// {
+
+	// 	$this->data['title'] = $this->lang->line('login_heading');
+
+	// 	// validate form input
+	// 	$this->form_validation->set_rules('username', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
+	// 	$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
+
+	// 	if ($this->form_validation->run() === TRUE)
+	// 	{
+	// 		// check to see if the user is logging in
+	// 		// check for "remember me"
+	// 		$remember = (bool)$this->input->post('remember');
+			
+	// 		if ($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember))
+	// 		{
+	// 			//if the login is successful
+	// 			//redirect them back to the home page
+	// 			$this->session->set_flashdata('message', $this->ion_auth->messages());
+	// 			redirect(base_url().'dashboard');
+	// 		}
+	// 		else
+	// 		{  
+	// 			// if the login was un-successful
+	// 			// redirect them back to the login page
+	// 			$this->session->set_flashdata('message_error', $this->ion_auth->errors());
+	// 			redirect(base_url().'login');
+	// 		}
+	// 	}else{
+		 
+	// 		redirect(base_url().'login');
+	// 	} 
+	// }
+
 	public function login()
 	{
 
 		$this->data['title'] = $this->lang->line('login_heading');
 
 		// validate form input
-		$this->form_validation->set_rules('username', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
+		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
 		$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
 
 		if ($this->form_validation->run() === TRUE)
@@ -73,25 +109,90 @@ class Auth extends CI_Controller
 			// check to see if the user is logging in
 			// check for "remember me"
 			$remember = (bool)$this->input->post('remember');
+			$mobile		= $this->input->post('identity');
+
+			   // check for username
+			   $this->ion_auth_model->identity_column = 'phone';
+			   $login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
+			   if(! $login) { // username is not successful
+				   $this->ion_auth_model->identity_column = 'email';
+				   // check for email
+				   $login = $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
+			   }
+		
+			   if( $login ) {
+			   if(is_numeric($this->input->post('identity'))){
+				$user 		= $this->ion_auth->check_mobile($mobile);
+				if($user) {
+
+					// Generate OTP
+					$otp = $this->generate_otp();
+		
+					$data = [
+						'otp'	=> $otp,
+					];
+		
+					// update otp in database
+					$this->ion_auth->update_otp($mobile, $data);
+		
+					// send otp on mobile number
+					$message = " Kode OTP Anda : *".$otp."*
+ Gunakan OTP untuk masuk ke Aplikasi, 
+ jaga kerahasian Kode Termasuk ke petugas kami.
+					";
+		
+					$this->whatsapp->send($mobile, $message);
+		
+					$data['mobile'] = $mobile;
+					$this->load->view('auth/verify', $data);	
+		
+				} else {
+					$this->session->set_flashdata('message', "number yg anda masukan salah");
 			
-			if ($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember))
-			{
-				//if the login is successful
-				//redirect them back to the home page
+				}
+
+			   }else{
+
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect(base_url().'dashboard');
-			}
-			else
-			{  
-				// if the login was un-successful
-				// redirect them back to the login page
-				$this->session->set_flashdata('message_error', $this->ion_auth->errors());
-				redirect(base_url().'login');
-			}
+			   }
+				
+			
+			   } else {
+					// redirect them back to the login page
+					$this->session->set_flashdata('message_error', $this->ion_auth->errors());
+					redirect(base_url().'login');
+			   }
+			
 		}else{
 		 
 			redirect(base_url().'login');
 		} 
+	}
+
+	public function generate_otp() {
+		$OTP 	=	rand(1,9);
+		$OTP 	.=	rand(0,9);
+		$OTP 	.=	rand(0,9);
+		$OTP 	.=	rand(0,9);
+		$OTP 	.=	rand(0,9);
+		$OTP 	.=	rand(0,9);
+		return $OTP;
+	}
+
+	public function verify() {
+		$mobile		= $this->input->post('mobile');
+		$otp		= $this->input->post('otp');
+
+		// check for otp 
+		$user = $this->ion_auth->verify($mobile, $otp);
+		if($user) {
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect(base_url().'dashboard');
+		} else {
+			$this->session->set_flashdata('message_error', "OTP yang anda masukan salah");
+			redirect(base_url().'login');
+		}
 	}
 
 	/**
