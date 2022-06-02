@@ -46,12 +46,10 @@ define([
                     { "data": "nama" },
                     { "data": "ktp" },
                     { "data": "tanggal" },
-                    { "data": "DFHS" },
-                    { "data": "nama_surveyor" },
                      { "data": "status" },
                     { "data": "action" }
                 ],
-                "order": [[ 1, "desc" ]]       
+                "order": [[ 0, "DESC" ]]       
             });
 
              $('.datepicker').datepicker({

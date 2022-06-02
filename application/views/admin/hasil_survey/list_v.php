@@ -66,8 +66,6 @@
                 <th>Nama</th> 
                 <th>KTP</th> 
                 <th>Tanggal Buat</th> 
-                <th>Formulir Hasil Survey</th> 
-               <th>Nama Surveyor</th> 
                <th>Di setujui ke pembelian barang</th> 
                 <th>Aksi</th>
               </thead>        

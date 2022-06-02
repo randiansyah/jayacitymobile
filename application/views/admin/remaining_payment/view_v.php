@@ -226,12 +226,12 @@
        
     
       </div>
-      <div class="col-xs-12 table-responsive">
+      <!-- <div class="col-xs-12 table-responsive">
    
        <h4 class="box-title">PEMBAYARAN</h3>
        <a href="<?php echo base_url('History_pembayaran/step1/').$val->id_akad ?>"> <button type="button" class="btn btn-success btn-lg btn-block">Bayar Sekarang</button>
     </a>
-                </div>
+                </div> -->
     </form>
          
  

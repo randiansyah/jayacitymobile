@@ -142,14 +142,14 @@ class Transaksi extends Admin_Controller
     if ($this->form_validation->run() === TRUE) {
 
       $harga_admin1 = str_replace(".", "", $this->input->post('admin'));
-      $harga_admin = str_replace("Rp", "", $harga_admin1);
+      //$harga_admin = str_replace("Rp", "", $harga_admin1);
       //
 
-      $harga_partai1 = str_replace(".", "", $this->input->post('harga_partai'));
-      $harga_partai = str_replace("Rp", "", $harga_partai1);
-      //
-      $harga_retail1 = str_replace(".", "", $this->input->post('harga_retail'));
-      $harga_retail  = str_replace("Rp", "", $harga_retail1);
+      // $harga_partai1 = str_replace(".", "", $this->input->post('harga_partai'));
+      // $harga_partai = str_replace("Rp", "", $harga_partai1);
+      // //
+      // $harga_retail1 = str_replace(".", "", $this->input->post('harga_retail'));
+      // $harga_retail  = str_replace("Rp", "", $harga_retail1);
 
       $harga_jual1 = str_replace(".", "", $this->input->post('harga_jual'));
       $harga_jual  = str_replace("Rp", "", $harga_jual1);
@@ -168,15 +168,10 @@ class Transaksi extends Admin_Controller
         'sn' => $this->input->post('sn'),
         'imei1' => $this->input->post('imei1'),
         'imei2' => $this->input->post('imei2'),
-        'no_lainnya' => $this->input->post('lainnya'),
-        'keterangan' => $this->input->post('keterangan'),
-        'admin' => $harga_admin,
         'id_cicilan' => $this->input->post('lama_cicilan'),
         'nama_toko' => $this->input->post('nama_toko'),
         'user_input' => $this->input->post('user_input'),
         'waktu_input' => $this->input->post('waktu_input'),
-        'harga_partai' => $harga_partai,
-        'harga_retail' => $harga_retail,
         'harga_jual' => $harga_jual,
         'is_deleted' => "0",
 
@@ -226,11 +221,11 @@ class Transaksi extends Admin_Controller
     $date = date('y-m-d H:i:s');
     if ($this->form_validation->run() === TRUE) {
 
-      $harga_partai1 = str_replace(".", "", $this->input->post('harga_partai'));
-      $harga_partai = str_replace("Rp", "", $harga_partai1);
-      //
-      $harga_retail1 = str_replace(".", "", $this->input->post('harga_retail'));
-      $harga_retail  = str_replace("Rp", "", $harga_retail1);
+      // $harga_partai1 = str_replace(".", "", $this->input->post('harga_partai'));
+      // $harga_partai = str_replace("Rp", "", $harga_partai1);
+      // //
+      // $harga_retail1 = str_replace(".", "", $this->input->post('harga_retail'));
+      // $harga_retail  = str_replace("Rp", "", $harga_retail1);
 
       $harga_jual1 = str_replace(".", "", $this->input->post('harga_jual'));
       $harga_jual  = str_replace("Rp", "", $harga_jual1);
@@ -248,15 +243,11 @@ class Transaksi extends Admin_Controller
         'sn' => $this->input->post('sn'),
         'imei1' => $this->input->post('imei1'),
         'imei2' => $this->input->post('imei2'),
-        'no_lainnya' => $this->input->post('lainnya'),
-        'keterangan' => $this->input->post('keterangan'),
         'admin' => $this->input->post('admin'),
         'id_cicilan' => $this->input->post('lama_cicilan'),
         'nama_toko' => $this->input->post('nama_toko'),
         'user_input' => $this->input->post('user_input'),
         'waktu_input' => $this->input->post('waktu_input'),
-        'harga_partai' => $harga_partai,
-        'harga_retail' => $harga_retail,
         'harga_jual' => $harga_jual,
         'is_deleted' => "0"
 

@@ -313,14 +313,14 @@ class Setoran_angsuran extends Admin_Controller
       $phone = $pelanggan->no_telp;
       $message = "Hai, " . $name . $temp_wa_header->isi;
       $messageWA = $message . "
-NAMA               : " . $transaksi->nama_barang . "
-NO IMEI            : " . $transaksi->imei1 . "
-KETERANGAN : " . $this->input->post('keterangan') . "
-JAM BAYAR     : " . $this->input->post('time') . "
-TGL BAYAR      : " . $this->input->post('tgl_bayar') . "
-DENDA             : Rp." . number_format($denda, 0, ',', '.') . "
-DISKON            : Rp." . number_format($diskon, 0, ',', '.') . "
-JUMLAH          : Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
+  NAMA                  " . $transaksi->nama_barang . "
+  NO IMEI               " . $transaksi->imei1 . "
+  KETERANGAN    " . $this->input->post('keterangan') . "
+  JAM BAYAR        " . $this->input->post('time') . "
+  TGL BAYAR         " . $this->input->post('tgl_bayar') . "
+  DENDA                 Rp." . number_format($denda, 0, ',', '.') . "
+  DISKON                Rp." . number_format($diskon, 0, ',', '.') . "
+  JUMLAH              Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
 " . $temp_wa_footer->isi;
 
       $WASEND = $this->whatsapp->send($phone, $messageWA);
@@ -336,14 +336,14 @@ JUMLAH          : Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
   no Telp : " . $pelanggan->no_telp . "
   Telah melakukan pembayaran :
 
-  NAMA               : " . $transaksi->nama_barang . "
-  NO IMEI            : " . $transaksi->imei1 . "
-  KETERANGAN : " . $this->input->post('keterangan') . "
-  JAM BAYAR     : " . $this->input->post('time') . "
-  TGL BAYAR      : " . $this->input->post('tgl_bayar') . "
-  DENDA             : Rp." . number_format($denda, 0, ',', '.') . "
-  DISKON            : Rp." . number_format($diskon, 0, ',', '.') . "
-  JUMLAH          : Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
+  NAMA                  " . $transaksi->nama_barang . "
+  NO IMEI               " . $transaksi->imei1 . "
+  KETERANGAN    " . $this->input->post('keterangan') . "
+  JAM BAYAR        " . $this->input->post('time') . "
+  TGL BAYAR         " . $this->input->post('tgl_bayar') . "
+  DENDA                 Rp." . number_format($denda, 0, ',', '.') . "
+  DISKON                Rp." . number_format($diskon, 0, ',', '.') . "
+  JUMLAH              Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
 
   ";
           $this->whatsapp->send($phone, $messageWA);

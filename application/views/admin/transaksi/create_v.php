@@ -51,7 +51,11 @@
                   ?>
                 </select>    
           </div> 
-           <div class="form-group">
+        
+        </div>
+      </div>
+      <div class="col-md-4">
+      <div class="form-group">
             <label for="">TIPE</label>
   <input class="form-control"  name="tipe"  autocomplete="off"  value="<?php set_value("tipe") ?>">            
           </div>
@@ -59,10 +63,6 @@
             <label for="">WARNA</label>
             <input class="form-control" name="warna" autocomplete="off"  value="<?php set_value("warna") ?>">
           </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-   
   <div class="form-group">
             <label for="">SN</label>
             <input class="form-control"  name="sn" autocomplete="off"  value="<?php set_value("sn") ?>">
@@ -75,30 +75,12 @@
             <label for="">IMEI 2</label>
          <input class="form-control" autocomplete="off" name="imei2" autocomplete="off"  value="<?php set_value("imei2") ?>">
           </div>
-          <div class="form-group">
-            <label for="">NO. LAINNYA</label>
-          <input class="form-control" autocomplete="off" name="lainnya" autocomplete="off"  value="<?php set_value("lainnya") ?>">
-          </div>
- <div class="form-group">
-            <label for="">KETERANGAN BARANG</label>
-           <textarea cols="4" rows="5" class="form-control" name="keterangan"  value="<?php set_value("keterangan") ?>"></textarea>
-          </div>
-                <div class="form-group">
-            <label for="">BIAYA ADMIN</label>
-      <input class="form-control harga" autocomplete="off" name="admin" autocomplete="off"  value="<?php set_value("admin") ?>">
-          </div>
+        
+
          
           </div>
           <div class="col-md-4">
-               <div class="form-group">
-            <label for="">HARGA PARTAI</label>
-   <input class="form-control harga" autocomplete="off" name="harga_partai" autocomplete="off"  value="<?php set_value("harga_partai") ?>">
-          </div>
-          
-            <div class="form-group">
-            <label for="">HARGA RETAIL</label>
-      <input class="form-control harga" autocomplete="off" name="harga_retail" autocomplete="off"  value="<?php set_value("harga_retail") ?>">
-          </div>
+             
              <div class="form-group">
             <label for="">HARGA JUAL</label>
            <input class="form-control harga" autocomplete="off" name="harga_jual" autocomplete="off"  value="<?php set_value("harga_jual") ?>">

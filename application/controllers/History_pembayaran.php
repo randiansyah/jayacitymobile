@@ -131,45 +131,7 @@ class History_pembayaran extends Admin_Controller
       'gross_amount' => $jumlah, // no decimal allowed for creditcard
     );
 
-    // // Optional
-    // $item1_details = array(
-    //   'id' => 'a1',
-    //   'price' => 18000,
-    //   'quantity' => 3,
-    //   'name' => "Apple"
-    // );
 
-    // // Optional
-    // $item2_details = array(
-    //   'id' => 'a2',
-    //   'price' => 20000,
-    //   'quantity' => 2,
-    //   'name' => "Orange"
-    // );
-
-    // Optional
-    $item_details = array();
-
-    // // Optional
-    // $billing_address = array(
-    //   'first_name'    => "Andri",
-    //   'last_name'     => "Litani",
-    //   'address'       => "Mangga 20",
-    //   'city'          => "Jakarta",
-    //   'postal_code'   => "16602",
-    //   'phone'         => "081122334455",
-    //   'country_code'  => 'IDN'
-    // );
-
-    // // Optional
-    // $shipping_address = array(
-    //   'first_name'    => "Obet",
-    //   'last_name'     => "Supriadi",
-    //   'address'       => "Manggis 90",
-    //   'city'          => "Jakarta",
-    //   'postal_code'   => "16601",
-    //   'phone'         => "08113366345",
-    //   'country_code'  => 'IDN'
     // );
 
     // Optional
@@ -193,7 +155,6 @@ class History_pembayaran extends Admin_Controller
 
     $transaction_data = array(
       'transaction_details' => $transaction_details,
-      'item_details'       => $item_details,
       'customer_details'   => $customer_details,
       'credit_card'        => $credit_card,
       'expiry'             => $custom_expiry

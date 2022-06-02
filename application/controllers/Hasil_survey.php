@@ -24,15 +24,13 @@ class Hasil_survey extends Admin_Controller
   public function dataList()
   {
     $columns = array(
-      0 => 'id',
+      0 => 'hasil_survey.id_hasil_survey',
       1 => 'hasil_survey.id_pelanggan',
       2 => 'nama',
       3 => 'ktp',
       4 => 'tanggal',
-      5 => 'DFHS',
-      6 => 'nama_surveyor',
-      7 => 'status',
-      8 => '',
+      5 => 'status',
+      6 => '',
     );
 
     $order = $columns[$this->input->post('order')[0]['column']];
@@ -95,7 +93,7 @@ class Hasil_survey extends Admin_Controller
         $nestedData['id_pelanggan']          = "<a href='" . base_url() . "Hasil_survey/view/" . $data->id_hasil_survey . "'><i class='fa fa-eye'></i> " . $data->id_hasil_survey . "</a> ";;
         $nestedData['nama']          = $data->nama;
         $nestedData['ktp']          = $data->ktp;
-        $nestedData['tanggal']    = $data->tanggal;
+        $nestedData['tanggal']    = date('d M Y', strtotime($data->tanggal));
         $nestedData['DFHS']    = $data->DFHS;
         $nestedData['nama_surveyor']    = $data->nama_surveyor;
         if ($data->PS > 0) {
@@ -197,39 +195,12 @@ class Hasil_survey extends Admin_Controller
         $this->image_lib->initialize($configer1, $configer2, $configer3, $configer4);
         $this->image_lib->resize();
 
-
-        $tanggal = date('Y-m-d', strtotime($this->input->post('tanggal')));
-
-
         $data = array(
           'id_pelanggan' => $this->input->post('pelanggan'),
           'pernah_kredit' => $this->input->post('pernah_kredit'),
-          'pengeluaran_rutin' => $this->input->post('pengeluaran_rutin'),
-          'kondisi_keuangan' => $this->input->post('kondisi_keuangan'),
-          'DFHS' => $this->input->post('DFHS'),
-          'nama_surveyor' => $this->input->post('nama_surveyor'),
-          'tanggal' => $tanggal,
-          'KHTK' => $this->input->post('KHTK'),
+          'tanggal' => date('Y-m-d'),
           'catatan' => $this->input->post('catatan'),
           //dokumen
-          'formulir_TTD' => $this->input->post('formulir_TTD'),
-          'fotocopy_ktp' => $this->input->post('fotocopy_ktp'),
-          'fotocopy_kk' => $this->input->post('fotocopy_kk'),
-          'fotocopy_slip_gaji' => $this->input->post('fotocopy_slip_gaji'),
-          'status_rumah' => $this->input->post('status_rumah'),
-          'analisis_keuangan' => $this->input->post('analisis_keuangan'),
-          'alamat_sekarang' => $this->input->post('alamat_sekarang'),
-          'lokasi' => $this->input->post('lokasi'),
-          'denah_rumah' => $this->input->post('denah_rumah'),
-          'kondisi_rumah' => $this->input->post('kondisi_rumah'),
-          'kondisi_tempat_usaha' => $this->input->post('kondisi_tempat_usaha'),
-          'kondisi_tempat_kerja' => $this->input->post('kondisi_tempat_kerja'),
-          'kondisi_tetangga' => $this->input->post('kondisi_tetangga'),
-          'karakter_keluarga' => $this->input->post('karakter_keluarga'),
-          'kondisi_tetangga' => $this->input->post('kondisi_tetangga'),
-          'pemakaian_objek_barang' => $this->input->post('pemakaian_objek_barang'),
-          'proses_pembelian' => $this->input->post('proses_pembelian'),
-          'catatan_dok' => $this->input->post('catatan_dok'),
           'foto_pelanggan' => $foto_pelanggan,
           'foto_ktp' => $foto_ktp,
           'foto_dl' => $foto_dl,
@@ -336,32 +307,8 @@ class Hasil_survey extends Admin_Controller
       $data = array(
         'id_pelanggan' => $this->input->post('pelanggan'),
         'pernah_kredit' => $this->input->post('pernah_kredit'),
-        'pengeluaran_rutin' => $this->input->post('pengeluaran_rutin'),
-        'kondisi_keuangan' => $this->input->post('kondisi_keuangan'),
-        'DFHS' => $this->input->post('DFHS'),
-        'nama_surveyor' => $this->input->post('nama_surveyor'),
-        'tanggal' => $tanggal,
-        'KHTK' => $this->input->post('KHTK'),
         'catatan' => $this->input->post('catatan'),
         //dokumen
-        'formulir_TTD' => $this->input->post('formulir_TTD'),
-        'fotocopy_ktp' => $this->input->post('fotocopy_ktp'),
-        'fotocopy_kk' => $this->input->post('fotocopy_kk'),
-        'fotocopy_slip_gaji' => $this->input->post('fotocopy_slip_gaji'),
-        'status_rumah' => $this->input->post('status_rumah'),
-        'analisis_keuangan' => $this->input->post('analisis_keuangan'),
-        'alamat_sekarang' => $this->input->post('alamat_sekarang'),
-        'lokasi' => $this->input->post('lokasi'),
-        'denah_rumah' => $this->input->post('denah_rumah'),
-        'kondisi_rumah' => $this->input->post('kondisi_rumah'),
-        'kondisi_tempat_usaha' => $this->input->post('kondisi_tempat_usaha'),
-        'kondisi_tempat_kerja' => $this->input->post('kondisi_tempat_kerja'),
-        'kondisi_tetangga' => $this->input->post('kondisi_tetangga'),
-        'karakter_keluarga' => $this->input->post('karakter_keluarga'),
-        'kondisi_tetangga' => $this->input->post('kondisi_tetangga'),
-        'pemakaian_objek_barang' => $this->input->post('pemakaian_objek_barang'),
-        'proses_pembelian' => $this->input->post('proses_pembelian'),
-        'catatan_dok' => $this->input->post('catatan_dok'),
         'foto_pelanggan' => $foto_pelanggan,
         'foto_ktp' => $foto_ktp,
         'foto_dl' => $foto_dl,
