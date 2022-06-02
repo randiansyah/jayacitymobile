@@ -33,12 +33,10 @@ class History_pembayaran extends Admin_Controller
       0 => 'id',
       1 => 'gross_amount',
       2 => 'payment_type',
-      3 => 'bank',
-      4 => 'va_number',
-      5 => 'transaction_time',
-      6 => 'status_code',
-      7 => 'pdf_url',
-      8 => '',
+      3 => 'transaction_time',
+      4 => 'status_code',
+      5 => 'pdf_url',
+      6 => '',
     );
 
     $order = $columns[$this->input->post('order')[0]['column']];
@@ -132,7 +130,6 @@ class History_pembayaran extends Admin_Controller
     );
 
 
-    // );
 
     // Optional
     $customer_details = array(
@@ -183,8 +180,6 @@ class History_pembayaran extends Admin_Controller
       "payment_type" => $result['payment_type'],
       "transaction_time" => $result['transaction_time'],
       "transaction_status" => $result['transaction_status'],
-      "bank" => $result['va_numbers'][0]['bank'],
-      "va_number" => $result['va_numbers'][0]['va_number'],
       "pdf_url" => $result['pdf_url'],
       "status_code" => $result['status_code'],
     ];

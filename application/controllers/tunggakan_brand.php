@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require_once APPPATH.'core/Admin_Controller.php';
-class tunggakan_brand extends Admin_Controller {
+class Tunggakan_brand extends Admin_Controller {
   public function __construct()
   {
     parent::__construct();
