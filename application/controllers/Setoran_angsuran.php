@@ -21,6 +21,7 @@ class Setoran_angsuran extends Admin_Controller
     $this->load->library('mailer');
     $this->load->library('whatsapp');
     $this->load->model('notif_model');
+    $this->load->helper('tgl_indo');
   }
   public function index()
   {
@@ -297,7 +298,8 @@ class Setoran_angsuran extends Admin_Controller
       $pelanggan = $this->customer_model->getOneBy(array("id_pelanggan" => $id_pelanggan));
       $transaksi = $this->transaksi_model->getOneBy(array("id_invoice" => $id_inv));
 
-
+     $tgl =  date("Y-m-d", strtotime($this->input->post('tgl_bayar')));
+     $dateChange = longdate_indo($tgl);
 
 
       //wa
@@ -308,7 +310,7 @@ class Setoran_angsuran extends Admin_Controller
       // email
       $getTemplate_email = $this->template->getById(3)->result();
       $temp_email = $getTemplate_email[0];
-
+ 
       $name = $pelanggan->nama;
       $phone = $pelanggan->no_telp;
       $message = "Hai, " . $name . $temp_wa_header->isi;
@@ -317,7 +319,7 @@ class Setoran_angsuran extends Admin_Controller
   NO IMEI               " . $transaksi->imei1 . "
   KETERANGAN    " . $this->input->post('keterangan') . "
   JAM BAYAR        " . $this->input->post('time') . "
-  TGL BAYAR         " . $this->input->post('tgl_bayar') . "
+  TGL BAYAR         " .  $dateChange . "
   DENDA                 Rp." . number_format($denda, 0, ',', '.') . "
   DISKON                Rp." . number_format($diskon, 0, ',', '.') . "
   JUMLAH              Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
@@ -340,7 +342,7 @@ class Setoran_angsuran extends Admin_Controller
   NO IMEI               " . $transaksi->imei1 . "
   KETERANGAN    " . $this->input->post('keterangan') . "
   JAM BAYAR        " . $this->input->post('time') . "
-  TGL BAYAR         " . $this->input->post('tgl_bayar') . "
+  TGL BAYAR         " .  $dateChange . "
   DENDA                 Rp." . number_format($denda, 0, ',', '.') . "
   DISKON                Rp." . number_format($diskon, 0, ',', '.') . "
   JUMLAH              Rp." . number_format($jumlah_bayar, 0, ',', '.') . "
@@ -362,7 +364,7 @@ NAMA PRODUK   : " . $transaksi->nama_barang . "<br>
 NO IMEI       : " . $transaksi->imei1 . "<br>
 KETERANGAN    : " . $this->input->post('keterangan') . "<br>
 JAM BAYAR     : " . $this->input->post('time') . "<br>
-TGL BAYAR     : " . $this->input->post('tgl_bayar') . "<br>
+TGL BAYAR     : " .  $dateChange . "<br>
 DENDA         : " . $this->input->post('denda') . "<br>
 DISKON        : " . $this->input->post('diskon') . "<br>
 JUMLAH        : " . $this->input->post('jumlah_bayar') . "<br>

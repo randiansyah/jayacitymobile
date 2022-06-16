@@ -11,6 +11,7 @@ class Cron extends CI_Controller
         $this->load->model("Template_email_model", "template");
          $this->load->model("Template_email_model", "template");
         // $this->load->library("input");
+        $this->load->helper('tgl_indo');
         $this->load->library('mailer');
         $this->load->library('whatsapp');
 
@@ -32,18 +33,24 @@ class Cron extends CI_Controller
         $temp_wa = $get_template_wa[0];
         $temp_email = $get_template_email[0];
 
+    
+
         if (!empty($tunggakan)) {
             foreach($tunggakan as $key => $val) {
+    
+        
+
                 $phone = $val->no_telp;
                 $message = "Hi, $val->nama" . ", ". $temp_wa->isi;
                 $messageWA = $message . "
-        TGL                     : " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
-        NAMA                 : " . $val->nama_barang . "
-        NO IMEI               : " . $val->imei1 . "
-        CICILAN              : " . $val->cicilan . "
-        JUMLAH             : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
 
-         
+*TGL                     " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "*
+*NAMA                 " . $val->nama_barang . "*
+*NO IMEI              " . $val->imei1 . "*
+*CICILAN             " . $val->cicilan . "*
+*JUMLAH            Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "*
+
+Bayarlah angsuran secara rutin agar kredit selesai tepat waktu.
                 ";
                 
                 $this->whatsapp->send($phone, $messageWA);
@@ -56,7 +63,9 @@ class Cron extends CI_Controller
                    <br> NAMA                 : " . $val->nama_barang . "
                    <br> NO IMEI              : " . $val->imei1 . "
                    <br> CICILAN              : " . $val->cicilan . "
-                   <br> JUMLAH               : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "",
+                   <br> JUMLAH               : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
+                   <br> Bayarlah angsuran secara rutin agar kredit selesai tepat waktu.
+                   ",
                 );
 
                 $this->mailer->send($send_mail);
@@ -70,14 +79,14 @@ class Cron extends CI_Controller
                 $messageWA = $message . "
 pelanggan kamu angsurannya jatuh tempo hari ini
 berikut rinciannya   :
-NAMA               : " . $val->namaPelanggan . "
-NO TELP           : " . $val->telpPelanggan . "
-EMAIL               : " . $val->emailPelanggan . "
-TGL                    : " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
-NAMA                : " . $val->nama_barang . "
-NO IMEI             : " . $val->imei1 . "
-CICILAN             : " . $val->cicilan . "
-JUMLAH            : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
+NAMA               " . $val->namaPelanggan . "
+NO TELP            " . $val->telpPelanggan . "
+EMAIL              " . $val->emailPelanggan . "
+TGL                " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
+NAMA               " . $val->nama_barang . "
+NO IMEI            " . $val->imei1 . "
+CICILAN            " . $val->cicilan . "
+JUMLAH             Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
 
          
                 ";
@@ -130,11 +139,14 @@ JUMLAH            : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
                 $phone = $val->no_telp;
                 $message = "Hi, $val->nama" . ", ". $temp_wa->isi;
                 $messageWA = $message . "
-        TGL                     : " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
-        NAMA                 : " . $val->nama_barang . "
-        NO IMEI               : " . $val->imei1 . "
-        CICILAN              : " . $val->cicilan . "
-        JUMLAH             : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
+
+*TGL                     " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "*
+*NAMA                 " . $val->nama_barang . "*
+*NO IMEI              " . $val->imei1 . "*
+*CICILAN             " . $val->cicilan . "*
+*JUMLAH            Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "*
+
+Bayarlah angsuran secara rutin agar kredit selesai tepat waktu.
 
          
                 ";
@@ -163,14 +175,14 @@ JUMLAH            : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
                 $messageWA = $message . "
 pelanggan kamu 3 hari lagi akan jatuh tempo
 berikut rinciannya   :
-NAMA               : " . $val->namaPelanggan . "
-NO TELP           : " . $val->telpPelanggan . "
-EMAIL               : " . $val->emailPelanggan . "
-TGL                    : " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
-NAMA                : " . $val->nama_barang . "
-NO IMEI             : " . $val->imei1 . "
-CICILAN             : " . $val->cicilan . "
-JUMLAH            : Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
+NAMA               " . $val->namaPelanggan . "
+NO TELP            " . $val->telpPelanggan . "
+EMAIL              " . $val->emailPelanggan . "
+TGL                " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
+NAMA               " . $val->nama_barang . "
+NO IMEI            " . $val->imei1 . "
+CICILAN            " . $val->cicilan . "
+JUMLAH             Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
 
          
                 ";

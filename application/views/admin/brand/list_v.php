@@ -29,6 +29,11 @@
     </div>
       <div class="row">
         <div class="col-md-12"> 
+          <?php
+          //$tgl = "06-07-2022";
+          // $tgl = date("Y-m-d", strtotime('22-06-2022'));
+          // echo longdate_indo($tgl);
+          ?>
             <div class="table-responsive">
             <?php if(!empty($this->session->flashdata('message'))){?>
             <div class="alert alert-info">

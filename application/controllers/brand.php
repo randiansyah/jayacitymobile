@@ -6,6 +6,7 @@ class Brand extends Admin_Controller {
   {
     parent::__construct();
     $this->load->model('brand_model'); 
+    $this->load->helper('tgl_indo');
   }
   public function index()
   {
