@@ -79,14 +79,15 @@ Bayarlah angsuran secara rutin agar kredit selesai tepat waktu.
                 $messageWA = $message . "
 pelanggan kamu angsurannya jatuh tempo hari ini
 berikut rinciannya   :
-NAMA               " . $val->namaPelanggan . "
-NO TELP            " . $val->telpPelanggan . "
-EMAIL              " . $val->emailPelanggan . "
-TGL                " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
-NAMA               " . $val->nama_barang . "
-NO IMEI            " . $val->imei1 . "
-CICILAN            " . $val->cicilan . "
-JUMLAH             Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
+
+*NAMA                " . $val->namaPelanggan . "*
+*NO TELP             " . $val->telpPelanggan . "*
+*EMAIL                 " . $val->emailPelanggan . "*
+*TGL                     " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "*
+*NAMA                 " . $val->nama_barang . "*
+*NO IMEI              " . $val->imei1 . "*
+*CICILAN              " . $val->cicilan . "*
+*JUMLAH              Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "*
 
          
                 ";
@@ -175,14 +176,15 @@ Bayarlah angsuran secara rutin agar kredit selesai tepat waktu.
                 $messageWA = $message . "
 pelanggan kamu 3 hari lagi akan jatuh tempo
 berikut rinciannya   :
-NAMA               " . $val->namaPelanggan . "
-NO TELP            " . $val->telpPelanggan . "
-EMAIL              " . $val->emailPelanggan . "
-TGL                " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "
-NAMA               " . $val->nama_barang . "
-NO IMEI            " . $val->imei1 . "
-CICILAN            " . $val->cicilan . "
-JUMLAH             Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "
+
+*NAMA             " . $val->namaPelanggan . "*
+*NO TELP          " . $val->telpPelanggan . "*
+*EMAIL              " . $val->emailPelanggan . "*
+*TGL                  " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "*
+*NAMA             " . $val->nama_barang . "*
+*NO IMEI          " . $val->imei1 . "*
+*CICILAN           " . $val->cicilan . "*
+*JUMLAH          Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "*
 
          
                 ";
