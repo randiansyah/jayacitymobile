@@ -63,6 +63,9 @@
         <input type="password" class="form-control" name="password" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
+      <div class="form-group">
+        <a href="<?php echo base_url()?>auth/forgot_password  "><span>Lupa Password ?</span></a>
+      </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">

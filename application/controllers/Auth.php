@@ -299,13 +299,13 @@ class Auth extends CI_Controller
 	{
 		// setting validation rules by checking whether identity is username or email
 		 
-	 	$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
+	 	$this->form_validation->set_rules('phone', $this->lang->line('login_identity_label'), 'required');
 		 
 
 
 		if ($this->form_validation->run() === FALSE)
 		{
-			$this->data['type'] = 'email';
+			$this->data['type'] = 'phone';
 			// setup the input
 			$this->data['identity'] = array('name' => 'identity',
 				'id' => 'identity',
@@ -320,8 +320,8 @@ class Auth extends CI_Controller
 		}
 		else
 		{
-			$identity_column = 'email';
-			$identity = $this->ion_auth->where($identity_column, $this->input->post('email'))->users()->row();
+			$identity_column = 'phone';
+			$identity = $this->ion_auth->where($identity_column, $this->input->post('phone'))->users()->row();
 
 			if (empty($identity))
 			{
@@ -335,9 +335,19 @@ class Auth extends CI_Controller
 			}
 
 			// run the forgotten password method to email an activation code to the user
-			$forgotten = $this->ion_auth->forgotten_password($identity->email);
-			print_r($forgotten);
-			die();
+		//	$forgotten = $this->ion_auth->forgotten_password($identity->email);
+		    $mobile = $identity->phone;
+			$message = " Password anda : *".$identity->real_password."*
+
+			password ini sangat rahasia
+			jaga kerahasian password Termasuk ke petugas kami.
+						";
+			$forgotten = 	$this->whatsapp->send($mobile, $message);
+		
+
+			
+		//	print_r($message);
+//die();
 			if ($forgotten)
 			{
 				// if there were no errors

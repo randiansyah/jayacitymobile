@@ -145,13 +145,17 @@ class Dashboard extends Admin_Controller {
 
 	public function transaction_chart()
 	{
-		$param      	= $this->input->post();
+		$periode_start      	= $this->input->post('periode_start');
+    $periode_end      	= $this->input->post('periode_end');
 		$start_date  = date("Y-m-d", strtotime(date('Y-m') . '-01'));
 		$end_date = date("Y-m-d", strtotime(date('Y-m') . '-31'));
 		$today			= date('Y-m-d');
 		$tgl_today		= mktime(0, 0, 0, date("m"), date("d") - 6, date("Y"));
 		$tujuh_hari		= date("Y-m-d", $tgl_today);
-		$query = $this->db->query("SELECT sum(jumlah_bayar) AS total,created_on FROM angsuran WHERE  DATE_FORMAT(created_on,'%Y-%m-%d') >= '" . $start_date . "' AND DATE_FORMAT(created_on,'%Y-%m-%d') <= '" . $end_date . "' GROUP BY DATE(created_on) ORDER BY created_on ASC");
+		$query = $this->db->query("SELECT sum(jumlah_bayar) AS total,tgl_bayar FROM angsuran 
+    WHERE  DATE_FORMAT(str_to_date(tgl_bayar,'%d-%m-%Y'), '%Y-%m-%d') >= '" . $periode_start . "' 
+    AND DATE_FORMAT(str_to_date(tgl_bayar,'%d-%m-%Y'), '%Y-%m-%d') <= '" . $periode_end . "'
+     GROUP BY tgl_bayar ORDER BY tgl_bayar ASC");
 
 
 		//	 echo $user;die;
@@ -160,7 +164,7 @@ class Dashboard extends Admin_Controller {
 		@$created_on = [];
 		foreach ($query->result_array() as $row) {
 			@$total[] = (float) (@$row['total']);
-			@$created_on[] = date('d M', strtotime(@$row['created_on']));
+			@$created_on[] = date('d M', strtotime(@$row['tgl_bayar']));
 		}
 
 		// data json untuk chart
@@ -172,15 +176,16 @@ class Dashboard extends Admin_Controller {
 		echo json_encode($data);
   }
   
-  public function dana_titipan_chart()
+  public function sale_chart()
 	{
-		$param      	= $this->input->post();
-		$start_date  = date("Y-m-d", strtotime(date('Y-m') . '-01'));
-		$end_date = date("Y-m-d", strtotime(date('Y-m') . '-31'));
-		$today			= date('Y-m-d');
-		$tgl_today		= mktime(0, 0, 0, date("m"), date("d") - 6, date("Y"));
-		$tujuh_hari		= date("Y-m-d", $tgl_today);
-		$query = $this->db->query("SELECT sum(jumlah_bayar) AS total,created_on FROM angsuran_titipan WHERE  DATE_FORMAT(created_on,'%Y-%m-%d') >= '" . $start_date . "' AND DATE_FORMAT(created_on,'%Y-%m-%d') <= '" . $end_date . "' GROUP BY DATE(created_on) ORDER BY created_on ASC");
+
+    $periode_start      	= $this->input->post('periode_start');
+    $periode_end      	= $this->input->post('periode_end');
+
+		$query = $this->db->query("SELECT sum(total) AS total,tgl_akad
+     FROM akad WHERE  DATE_FORMAT(tgl_akad,'%Y-%m-%d') >= '" . $periode_start . "'
+      AND DATE_FORMAT(tgl_akad,'%Y-%m-%d') <= '" . $periode_end . "' GROUP BY 
+     tgl_akad ORDER BY tgl_akad ASC");
 
 
 		//	 echo $user;die;
@@ -189,7 +194,7 @@ class Dashboard extends Admin_Controller {
 		@$created_on = [];
 		foreach ($query->result_array() as $row) {
 			@$total[] = (float) (@$row['total']);
-			@$created_on[] = date('d M', strtotime(@$row['created_on']));
+			@$created_on[] = date('d M', strtotime(@$row['tgl_akad']));
 		}
 
 		// data json untuk chart

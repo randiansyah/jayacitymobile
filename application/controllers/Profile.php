@@ -70,6 +70,55 @@ class Profile extends Admin_Controller {
 		}    
 		
 	}  
+
+	public function changePhone()
+	{ 
+
+		if (!empty($_POST))
+		{
+			if(!empty($this->input->post('phone')))
+			{
+				// print_r($_POST);
+				$data = array(
+					
+					'phone'   => $this->input->post('phone')
+				); 
+				$user_id = $this->input->post('id'); 
+
+				$update = $this->profile_model->update($data,array("id"=>$user_id));
+		
+			
+				if ($update)
+				{
+					//if the password was successfully changed
+					$this->session->set_flashdata('message', 'Data Berhasil Diupdate');
+					redirect('profile/changePhone', 'refresh');
+				}
+				else
+				{
+					$this->session->set_flashdata('message_error', 'Data Gagal Diupdate');
+					redirect('profile/changePhone', 'refresh');
+				} 
+			}else{
+				$this->session->set_flashdata('message_error', 'Tidak ada yang di ubah');
+					redirect('profile', 'refresh');
+			}
+			
+		} 
+		else
+		{
+			$data = $this->data['users'];
+			$this->data['id'] =   (!empty($data))?$data->id:"";
+			$this->data['phone'] =   (!empty($data))?$data->phone:""; 
+			// $this->data['phone'] =   (!empty($data))?$data->phone:""; 
+			// $this->data['address'] =   (!empty($data))?$data->address:"";  
+			$this->data['content'] = 'admin/profile/edit_phone_v'; 
+			$this->load->view('admin/layouts/page',$this->data);  
+
+		}    
+		
+	} 
+
 		public function gantiEmail()
 	{ 
 

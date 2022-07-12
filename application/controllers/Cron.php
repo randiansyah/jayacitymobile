@@ -81,13 +81,13 @@ pelanggan kamu angsurannya jatuh tempo hari ini
 berikut rinciannya   :
 
 *NAMA                " . $val->namaPelanggan . "*
-*NO TELP             " . $val->telpPelanggan . "*
+*NO TELP            " . $val->telpPelanggan . "*
 *EMAIL                 " . $val->emailPelanggan . "*
 *TGL                     " . date("d M Y", strtotime($val->tgl_jatuh_tempo)) . "*
 *NAMA                 " . $val->nama_barang . "*
 *NO IMEI              " . $val->imei1 . "*
-*CICILAN              " . $val->cicilan . "*
-*JUMLAH              Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "*
+*CICILAN             " . $val->cicilan . "*
+*JUMLAH             Rp." . number_format($val->jumlah_cicilan,0, ",", ".") . "*
 
          
                 ";

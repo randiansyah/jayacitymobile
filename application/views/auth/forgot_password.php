@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Log in</title>
+  <title>JAYA CITY MOBILE</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -32,7 +32,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?php echo base_url()?>"><b>Admin</b>LTE</a>
+    <a href="<?php echo base_url()?>"><b>JAYA CITY MOBILE</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -46,17 +46,15 @@
           <?php }?>
     <form action="<?php echo base_url();?>auth/forgot_password" method="post" id="form-forgot-password">
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" name="email" placeholder="Email">
+        <input type="" class="form-control" name="phone" placeholder="phone">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="row">
         <!-- /.col -->
-        <div class="col-xs-6">
-          <button type="submit" class="btn btn-primary btn-block btn-flat" id="btn-login">Send Link</button>
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary btn-block btn-flat" id="btn-login">Kirim Password</button>
         </div>
-        <div class="col-xs-6">
-          <a class="btn btn-default btn-block btn-flat" href="<?php echo base_url()?>auth/forgot_password">Forgot Password</a>
-        </div>
+       
 
         <!-- /.col -->
       </div>

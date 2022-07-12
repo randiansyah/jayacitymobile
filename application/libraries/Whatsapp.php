@@ -11,7 +11,7 @@ class Whatsapp {
 
     public function send($phone = '', $message ='')
     {
-        $token = "JeWY9jw2FsDKKg2ibkJ2D2biQDTqUiLsPi1Qvy8eaWj225RaTE";
+        $token = "UwssgXDTPD3FqWxJZZtJLoxt8dNMrRA5PfFuuqSojgVoWxHyHD";
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
